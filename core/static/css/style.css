@@ -287,6 +287,12 @@ h1,h2,h3,h4,h5,h6 {
 .swiper-next:hover {
   background: var(--bs-primary);
 }
+.swiper-slide img {
+  width: 100px; /* Ajusta según el tamaño de las otras imágenes */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%; /* Asegura que sea circular */
+}
 
 /* category carousel */
 .category-carousel .category-item {

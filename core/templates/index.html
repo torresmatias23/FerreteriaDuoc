@@ -17,6 +17,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/vendor.css">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -309,12 +311,12 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Páginas</a>
                 <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
-                  <li><a href="index.html" class="dropdown-item">Sobre nosotros</a></li>
-                  <li><a href="index.html" class="dropdown-item">Tienda</a></li>
-                  <li><a href="{% url 'productos' %}" class="dropdown-item">Single Product </a></li>
-                  <li><a href="index.html" class="dropdown-item">Carrito </a></li>
-                  <li><a href="index.html" class="dropdown-item">Checkout </a></li>
-                  <li><a href="index.html" class="dropdown-item">Contacto </a></li>
+                  <li><a href="index.html" class="dropdown-item">Perfil</a></li>
+                  <li><a href="index.html" class="dropdown-item">Productos</a></li>
+                  <li><a href="{% url 'productos' %}" class="dropdown-item">Ropa y Accesorios</a></li>
+                  <li><a href="index.html" class="dropdown-item">Hot Sale</a></li>
+                  <li><a href="index.html" class="dropdown-item">Contacto</a></li>
+                  <li><a href="index.html" class="dropdown-item">Opiniones y comentarios</a></li>
                 </ul>
               </li>
             </ul>
@@ -357,19 +359,19 @@
             <div class="row my-5">
               <div class="col">
                 <div class="row text-dark">
-                  <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">20k+</p></div>
+                  <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">+1k</p></div>
                   <div class="col"><p class="text-uppercase lh-sm mb-0">Productos</p></div>
                 </div>
               </div>
               <div class="col">
                 <div class="row text-dark">
-                  <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">50k+</p></div>
-                  <div class="col"><p class="text-uppercase lh-sm mb-0">Compradores</p></div>
+                  <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">20k+</p></div>
+                  <div class="col"><p class="text-uppercase lh-sm mb-0">Ventas</p></div>
                 </div>
               </div>
               <div class="col">
                 <div class="row text-dark">
-                  <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">10+</p></div>
+                  <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">2+</p></div>
                   <div class="col"><p class="text-uppercase lh-sm mb-0">Tiendas</p></div>
                 </div>
               </div>
@@ -386,8 +388,8 @@
                 </div>
                 <div class="col-md-9">
                   <div class="card-body p-0">
-                    <h5 class="text-light">Fresh from farm</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                    <h5 class="text-light">+20 años</h5>
+                    <p class="card-text">Profesionalismo y seriedad con el cliente.</p>
                   </div>
                 </div>
               </div>
@@ -401,8 +403,8 @@
                 </div>
                 <div class="col-md-9">
                   <div class="card-body p-0">
-                    <h5 class="text-light">100% Organic</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                    <h5 class="text-light">100% calidad</h5>
+                    <p class="card-text">Entregando productos de calidad para la buena experiencia del cliente.</p>
                   </div>
                 </div>
               </div>
@@ -416,8 +418,8 @@
                 </div>
                 <div class="col-md-9">
                   <div class="card-body p-0">
-                    <h5 class="text-light">Free delivery</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                    <h5 class="text-light">Delivery gratis</h5>
+                    <p class="card-text">Envios dentro de la region, fuera tendra una comision dependiendo la compra.</p>
                   </div>
                 </div>
               </div>
@@ -434,10 +436,10 @@
           <div class="col-md-12">
 
             <div class="section-header d-flex flex-wrap justify-content-between mb-5">
-              <h2 class="section-title">Category</h2>
+              <h2 class="section-title">Categoria</h2>
 
               <div class="d-flex align-items-center">
-                <a href="#" class="btn btn-primary me-2">View All</a>
+                <a href="#" class="btn btn-primary me-2">Ver todas</a>
                 <div class="swiper-buttons">
                   <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
                   <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
@@ -453,57 +455,44 @@
             <div class="category-carousel swiper">
               <div class="swiper-wrapper">
                 <a href="category.html" class="nav-link swiper-slide text-center">
-                  <img src="static/images/category-thumb-1.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
+                  <img src="static/images/" class="rounded-circle" alt="Category Thumbnail">
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Ferretria general</h4>
                 </a>
                 <a href="category.html" class="nav-link swiper-slide text-center">
                   <img src="static/images/category-thumb-2.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Breads & Sweets</h4>
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Material de construccion</h4>
                 </a>
                 <a href="category.html" class="nav-link swiper-slide text-center">
                   <img src="static/images/category-thumb-3.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Herramientas(Electricas y manuales)
+                  </h4>
                 </a>
                 <a href="category.html" class="nav-link swiper-slide text-center">
                   <img src="static/images/category-thumb-4.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Beverages</h4>
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Gasfiteria</h4>
                 </a>
                 <a href="category.html" class="nav-link swiper-slide text-center">
                   <img src="static/images/category-thumb-5.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Meat Products</h4>
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Pintura</h4>
                 </a>
                 <a href="category.html" class="nav-link swiper-slide text-center">
                   <img src="static/images/category-thumb-6.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Breads</h4>
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Electridad</h4>
                 </a>
                 <a href="category.html" class="nav-link swiper-slide text-center">
                   <img src="static/images/category-thumb-7.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Accesorios y Ropa</h4>
                 </a>
                 <a href="category.html" class="nav-link swiper-slide text-center">
                   <img src="static/images/category-thumb-8.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Breads & Sweets</h4>
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Jardineria</h4>
                 </a>
                 <a href="category.html" class="nav-link swiper-slide text-center">
                   <img src="static/images/category-thumb-1.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Fruits & Veges</h4>
+                  <h4 class="fs-6 mt-3 fw-normal category-title">Adhesivo y Selladores</h4>
                 </a>
-                <a href="category.html" class="nav-link swiper-slide text-center">
-                  <img src="static/images/category-thumb-1.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Beverages</h4>
-                </a>
-                <a href="category.html" class="nav-link swiper-slide text-center">
-                  <img src="static/images/category-thumb-1.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Meat Products</h4>
-                </a>
-                <a href="category.html" class="nav-link swiper-slide text-center">
-                  <img src="static/images/category-thumb-1.jpg" class="rounded-circle" alt="Category Thumbnail">
-                  <h4 class="fs-6 mt-3 fw-normal category-title">Breads</h4>
-                </a>
-                
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -517,13 +506,12 @@
 
             <div class="section-header d-flex flex-wrap justify-content-between my-4">
               
-              <h2 class="section-title">Best selling products</h2>
+              <h2 class="section-title">Productos destacados</h2>
 
               <div class="d-flex align-items-center">
-                <a href="#" class="btn btn-primary rounded-1">View All</a>
+                <a href="#" class="btn btn-primary rounded-1">Ver todos</a>
               </div>
             </div>
-            
           </div>
         </div>
         
@@ -536,11 +524,11 @@
                 <div class="product-item">
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="static/images/product-thumb-1.png" alt="Product Thumbnail" class="tab-image">
+                      <img src="static/images/" alt="Product Thumbnail" class="tab-image">
                     </a>
                   </figure>
                   <div class="d-flex flex-column text-center">
-                    <h3 class="fs-6 fw-normal">Whole Wheat Sandwich Bread</h3>
+                    <h3 class="fs-6 fw-normal">Clavos</h3>
                     <div>
                       <span class="rating">
                         <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
@@ -559,7 +547,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -594,7 +582,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -624,12 +612,12 @@
                     <div class="d-flex justify-content-center align-items-center gap-2">
                       <del>$14.00</del>
                       <span class="text-dark fw-semibold">$12.00</span>
-                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">Agregar a carrito</span>
                     </div>
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -664,7 +652,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -699,7 +687,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -734,7 +722,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -769,7 +757,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -804,7 +792,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -839,7 +827,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
@@ -874,7 +862,7 @@
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
                         <div class="col-3"><input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1"></div>
-                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg> Add to Cart</a></div>
+                        <div class="col-7"><a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart"><svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito</a></div>
                         <div class="col-2"><a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"><svg width="18" height="18"><use xlink:href="#heart"></use></svg></a></div>
                       </div>
                     </div>
