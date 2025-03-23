@@ -1,0 +1,3 @@
+# Ignorar credenciales de Firebase
+core/firebase_config.json
+core/secrets

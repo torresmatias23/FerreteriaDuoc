@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,14 +23,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
-    <!-- SVGs VARIOS-->
-
-
-
-
-
-    
   </head>
   <body>
 
@@ -111,7 +103,7 @@
     </svg>
 
 
-    <!-- Menu lateral derecho -->
+    <!-- Menu lateral derecho (carrito)-->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
       <div class="offcanvas-header justify-content-center">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -235,89 +227,104 @@
 
 
   <!-- MENU LATERAL DE CATEGORIAS -->
-  <header style="padding: 2rem 0; font-size: 1.2rem; background-color: #aa8040; ">
+  <header style="padding: 2rem 0; font-size: 1.2rem; background-color: #aa8040;">
     <div class="container-fluid">
-      <div class="row border-bottom align-items-center justify-content-center" style="min-height: 120px;">
-        
-        <div class="col-sm-4 col-lg-2 text-center d-flex gap-3 justify-content-center">
-          <div class="d-flex align-items-center my-3">
-            <a href="index.html">
-              <img src="static/images/logoferre.png" alt="logo" class="img-fluid" style="max-height: 120px; width: auto;">
-            </a>
-          </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar">
-            <svg width="30" height="30" viewBox="0 0 24 24"><use xlink:href="#menu"></use></svg>
-          </button>
-        </div>
-        
-        <div class="col-sm-6 col-lg-4">
-          <div class="search-bar row bg-light p-3 rounded-4">
-            <div class="col-md-4 d-none d-md-block">
-              <select class="form-select border-0 bg-transparent">
-                <option>Categorías</option>
-                <option>Hogar</option>
-                <option>Jardin</option>
-                <option>Plomería</option>
-                <option>Gasfitería</option>
-                <option>Herramientas</option>
-                <option>Maquinaria</option>
-                <option>Seguridad</option>
-              </select>
+        <div class="row border-bottom align-items-center justify-content-center" style="min-height: 120px;">
+            
+            <div class="col-sm-4 col-lg-2 text-center d-flex gap-3 justify-content-center">
+                <div class="d-flex align-items-center my-3">
+                    <a href="index.html">
+                        <img src="{% static 'images/logoferre.png' %}" alt="logo" class="img-fluid" style="max-height: 120px; width: auto;">
+                    </a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
+                    <svg width="30" height="30" viewBox="0 0 24 24"><use xlink:href="#menu"></use></svg>
+                </button>
             </div>
-            <div class="col-11 col-md-7">
-              <form id="search-form" class="text-center" action="{% url 'home' %}" method="post">
-                <input type="text" class="form-control border-0 bg-transparent" placeholder="Busca en más de 20,000 productos">
-              </form>
+
+            <div class="col-sm-6 col-lg-4">
+                <div class="search-bar row bg-light p-3 rounded-4">
+                    <div class="col-md-4 d-none d-md-block">
+                        <select class="form-select border-0 bg-transparent">
+                            <option>Categorías</option>
+                            <option>Hogar</option>
+                            <option>Jardin</option>
+                            <option>Plomería</option>
+                            <option>Gasfitería</option>
+                            <option>Herramientas</option>
+                            <option>Maquinaria</option>
+                            <option>Seguridad</option>
+                        </select>
+                    </div>
+                    <div class="col-11 col-md-7">
+                        <form id="search-form" class="text-center" action="{% url 'home' %}" method="post">
+                            <input type="text" class="form-control border-0 bg-transparent" placeholder="Busca en más de 20,000 productos">
+                        </form>
+                    </div>
+                    <div class="col-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
+                    </div>
+                </div>
             </div>
-            <div class="col-1">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
+
+            <div class="col-lg-4">
+                <ul class="navbar-nav list-unstyled d-flex flex-row gap-4 justify-content-center align-items-center mb-0 fw-bold text-uppercase text-dark">
+                    <li class="nav-item active">
+                        <a href="{% url 'home' %}" class="nav-link" style="padding: 0.75rem 1.5rem;">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0.75rem 1.5rem;">Páginas</a>
+                        <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
+                            <li><a href="index.html" class="dropdown-item">Perfil</a></li>
+                            <li><a href="index.html" class="dropdown-item">Productos</a></li>
+                            <li><a href="{% url 'productos' %}" class="dropdown-item">Ropa y Accesorios</a></li>
+                            <li><a href="index.html" class="dropdown-item">Hot Sale</a></li>
+                            <li><a href="index.html" class="dropdown-item">Contacto</a></li>
+                            <li><a href="index.html" class="dropdown-item">Opiniones y comentarios</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-          </div>
-        </div>
-        
-        <div class="col-lg-4">
-          <ul class="navbar-nav list-unstyled d-flex flex-row gap-4 justify-content-center align-items-center mb-0 fw-bold text-uppercase text-dark">
-            <li class="nav-item active">
-              <a href="{% url 'home' %}" class="nav-link" style="padding: 0.75rem 1.5rem;">Inicio</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0.75rem 1.5rem;">Páginas</a>
-              <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
-                <li><a href="index.html" class="dropdown-item">Perfil</a></li>
-                <li><a href="index.html" class="dropdown-item">Productos</a></li>
-                <li><a href="{% url 'productos' %}" class="dropdown-item">Ropa y Accesorios</a></li>
-                <li><a href="index.html" class="dropdown-item">Hot Sale</a></li>
-                <li><a href="index.html" class="dropdown-item">Contacto</a></li>
-                <li><a href="index.html" class="dropdown-item">Opiniones y comentarios</a></li>
+
+            <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center">
+              <ul class="d-flex list-unstyled m-0">
+                  {% if user.is_authenticated %}
+                      <li>
+                          <span style="color: #000000;">Hola, {{ user.email }}!</span>
+                      </li>
+                      <li>
+                        <!-- Botón de logout -->
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger p-2 mx-2">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                  {% else %}
+                      <li>
+                          <a href="{% url 'login' %}" class="p-2 mx-2" style="color: rgb(0, 0, 0);">
+                              <svg width="30" height="30" ><use xlink:href="#user"></use></svg>
+                          </a>
+                      </li>
+                  {% endif %}
+                  <li>
+                      <a href="#" class="p-2 mx-2" style="color: rgb(0, 0, 0);">
+                          <svg width="30" height="30"><use xlink:href="#wishlist"></use></svg>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#" style="color: rgb(0, 0, 0);" class="p-2 mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                          <svg width="30" height="30"><use xlink:href="#shopping-bag"></use></svg>
+                      </a>
+                  </li>
               </ul>
-            </li>
-          </ul>
+          </div>
         </div>
-        
-        <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center">
-          <ul class="d-flex list-unstyled m-0">
-            <li>
-              <a href="#" class="p-2 mx-2" style="color: rgb(0, 0, 0);">
-                <svg width="30" height="30" ><use xlink:href="#user"></use></svg>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="p-2 mx-2" style="color: rgb(0, 0, 0);" >
-                <svg width="30" height="30"><use xlink:href="#wishlist"></use></svg>
-              </a>
-            </li>
-            <li>
-              <a href="#" style="color: rgb(0, 0, 0);" class="p-2 mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                <svg width="30" height="30"><use xlink:href="#shopping-bag"></use></svg>
-              </a>
-            </li>
-          </ul>
-        </div>
-        
-      </div>
     </div>
-  </header>
+</header>
+
     
 
   <!-- TEXTO INICIAL -->
