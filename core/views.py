@@ -7,6 +7,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth import login
+from django.views.decorators.csrf import csrf_exempt
+import json
 # Create your views here.
 def home(request):
     return render(request, 'index.html')
