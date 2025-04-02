@@ -1,0 +1,149 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: white; /* Aseguramos que todo el texto sea blanco por defecto */
+}
+
+.container {
+    max-width: 1200px;
+    margin-top: 50px;
+}
+
+/* Información de contacto */
+.contact-info {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+.contact-info h3 {
+    color: orange;
+}
+
+.contact-info p {
+    color: #f0f0f0; /* Color más claro para el texto */
+}
+
+/* Estilo del formulario de contacto */
+.contact-form {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+/* Título del formulario */
+.contact-form h3 {
+    color: orange;
+}
+
+/* Estilo para los inputs y textarea */
+input, textarea {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid orange;
+    border-radius: 5px;
+    background-color: #222;
+    color: white;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: orange;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+    background-color: #333;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #aaa; /* Cambié el color del placeholder para mayor visibilidad */
+}
+.input-group-text {
+    font-size: 18px; /* Tamaño más pequeño para el ícono */
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+.input-group input, .input-group textarea {
+    margin-right: 10px; /* Separación entre el texto y el ícono */
+}
+/* Efecto cuando el puntero pasa sobre los inputs y textarea */
+input:hover, textarea:hover {
+    border-color: #ff7f00;
+    background-color: #333;
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.7);
+}
+
+/* Efecto del botón de envío */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: orange;
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.valid-feedback {
+    color: limegreen;
+    font-size: 14px; /* Reducimos el tamaño del texto */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.valid-feedback::before {
+    content: "✔"; /* Símbolo de check */
+    font-size: 16px; /* Tamaño adecuado */
+}
+button:hover {
+    background-color: darkorange;
+    transform: scale(1.05); /* Efecto de agrandar el botón */
+}
+
+/* Enlace de registro */
+.register-link {
+    display: block;
+    margin-top: 15px;
+    color: orange;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+/* Animación de la caja de texto al enfocarse */
+input:focus, textarea:focus {
+    animation: highlightInput 0.3s ease-in-out forwards;
+}
+
+@keyframes highlightInput {
+    0% {
+        box-shadow: 0 0 0px rgba(255, 165, 0, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+    }
+}
+
+/* Colores personalizados */
+.text-orange {
+    color: orange !important;
+}
+
+.btn-orange {
+    background-color: orange !important;
+    color: black !important;
+}

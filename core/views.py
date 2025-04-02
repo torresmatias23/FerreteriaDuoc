@@ -8,13 +8,36 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth import login
 from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+import firebase_admin
+from firebase_admin import firestore
 import json
-# Create your views here.
+
+# Conectar con Firestore
+db = firestore.client()
 def home(request):
     return render(request, 'index.html')
 
 def productos(request):
     return render(request, 'productos.html')
+def contacto(request):
+    mensaje = ""
+    
+    if request.method == "POST":
+        nombre = request.POST.get("nombre")
+        email = request.POST.get("email")
+        mensaje = request.POST.get("mensaje")
+
+        doc_ref = db.collection("contactos").document()
+        doc_ref.set({
+            "nombre": nombre,
+            "email": email,
+            "mensaje": mensaje
+        })
+
+        mensaje = "Mensaje enviado correctamente"
+
+    return render(request, "contacto.html", {"mensaje": mensaje})
 
 def registrar_usuario(request):
     if request.method == "POST":
