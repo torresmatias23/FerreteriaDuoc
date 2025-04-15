@@ -1,0 +1,80 @@
+/* Fondo oscuro general */
+body {
+    background-color: #1a1a1a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 40px 0;
+  }
+  
+  /* Contenedor principal del producto */
+  .detalle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Caja del producto */
+  .producto-box {
+    background-color: #111;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.3);
+    max-width: 1100px;
+  }
+  
+  /* Imagen del producto */
+  .producto-imagen {
+    max-height: 500px;
+    object-fit: contain;
+    background-color: #222;
+  }
+  
+  /* Título */
+  .producto-titulo {
+    font-size: 2.5rem;
+    color: orange;
+    font-weight: bold;
+  }
+  
+  /* Precio y descuento */
+  .producto-precio {
+    font-size: 1.3rem;
+    margin-top: 10px;
+  }
+  
+  .precio-antiguo {
+    text-decoration: line-through;
+    color: #aaa;
+    margin-right: 10px;
+  }
+  
+  .descuento {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  /* Descripción */
+  .producto-descripcion {
+    margin-top: 20px;
+    line-height: 1.6;
+    color: #ccc;
+  }
+  
+  /* Input cantidad */
+  .cantidad-input {
+    background-color: #222;
+    border: 1px solid orange;
+    color: white;
+  }
+  
+  /* Botón agregar */
+  .btn-warning {
+    background-color: orange;
+    border: none;
+    color: black;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-warning:hover {
+    background-color: darkorange;
+  }

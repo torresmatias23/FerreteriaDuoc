@@ -15,11 +15,79 @@ import json
 
 # Conectar con Firestore
 db = firestore.client()
+
 def home(request):
-    return render(request, 'index.html')
+    productos = []
+    try:
+        docs = db.collection("productos").stream()
+        for doc in docs:
+            data = doc.to_dict()
+            data['id'] = doc.id
+            productos.append(data)
+    except Exception as e:
+        print("Error al traer productos:", e)
+
+    return render(request, 'index.html', {'productos': productos})
+
+
+
 
 def productos(request):
-    return render(request, 'productos.html')
+    productos = []
+    categorias = set()
+    filtro_categoria = request.GET.get("categoria", "")
+
+    try:
+        docs = db.collection("productos").stream()
+        for doc in docs:
+            data = doc.to_dict()
+            data["id"] = doc.id
+            categorias.add(data["categoria"])
+            if filtro_categoria == "" or data["categoria"] == filtro_categoria:
+                productos.append(data)
+    except Exception as e:
+        print("Error:", e)
+
+    return render(request, "productos.html", {
+        "productos": productos,
+        "categorias": sorted(categorias),
+        "categoria_actual": filtro_categoria
+    })
+
+
+# DETALLE DE PRODUCTO
+def detalle_producto(request, producto_id):
+    try:
+        doc = db.collection("productos").document(producto_id).get()
+        if doc.exists:
+            producto = doc.to_dict()
+            producto["id"] = doc.id
+            return render(request, "producto_detalle.html", {"producto": producto})
+        else:
+            return HttpResponse("Producto no encontrado", status=404)
+    except Exception as e:
+        return HttpResponse("Error al obtener producto: " + str(e), status=500)
+# SUBIR NUEVO PRODUCTO
+def subir_producto(request):
+    if request.method == "POST":
+        nombre = request.POST["nombre"]
+        descripcion = request.POST["descripcion"]
+        categoria = request.POST["categoria"]
+        precio = int(request.POST["precio"])
+        imagen = request.POST["imagen"]
+
+        db.collection("productos").add({
+            "nombre": nombre,
+            "descripcion": descripcion,
+            "categoria": categoria,
+            "precio": precio,
+            "imagen": imagen
+        })
+
+        return redirect("/productos/")
+
+    return render(request, "subir_producto.html")
+
 def contacto(request):
     mensaje = ""
     

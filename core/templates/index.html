@@ -408,6 +408,28 @@
       </div>
     </section>
 
+    <section class="container my-5">
+      <h2 class="text-center mb-4">Productos destacados</h2>
+      <div class="row justify-content-center row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for producto in productos %}
+          <div class="col d-flex justify-content-center">
+            <a href="{% url 'detalle_producto' producto.id %}" class="text-decoration-none">
+              <div class="card producto-card shadow-sm">
+                <div class="producto-img-container">
+                  <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}" class="producto-img">
+                </div>
+                <div class="card-body text-center">
+                  <h5 class="producto-title card-title">{{ producto.nombre }}</h5>
+                  <p class="producto-price card-text">${{ producto.precio }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+
     <!-- CATEGORIAS -->
     <section class="py-5 overflow-hidden">
       <div class="container-lg">
