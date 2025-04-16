@@ -31,6 +31,25 @@ def home(request):
 
 
 
+def clientes_nuevos(request):
+    users = []
+    page = auth.list_users()
+    while page:
+        for user in page.users:
+            users.append({
+                'uid': user.uid,
+                'email': user.email
+            })
+        if page.has_next_page:
+            page = page.get_next_page()
+        else:
+            break
+
+    # Si quieres, puedes limitar a los últimos 5 registrados (Firebase no garantiza orden, pero tú podrías ordenar si tienes un campo fecha)
+    users = users[:5]
+
+    return render(request, 'dashboard_admin.html', {'users': users})
+
 
 def productos(request):
     productos = []
@@ -131,6 +150,28 @@ def registrar_usuario(request):
             return JsonResponse({"error": str(e)})
 
     return render(request, "registro.html")
+
+def dashboard_admin(request):
+    users = []
+    try:
+        page = auth.list_users()
+        while page:
+            for user in page.users:
+                users.append({
+                    'uid': user.uid,
+                    'email': user.email
+                })
+            if page.has_next_page():
+                page = page.get_next_page()
+            else:
+                break
+        # Mostrar solo los últimos 5 (aunque Firebase no garantiza orden)
+        users = users[:5]
+    except Exception as e:
+        print("Error al obtener usuarios:", e)
+
+    return render(request, "dashboard_admin.html", {"users": users})
+
 
 
 def login_usuario(request):

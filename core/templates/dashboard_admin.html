@@ -1,1 +1,185 @@
-<!-- admin: Panel de control para administrar usuarios y ventas.  -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Administración - Ferretería</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static '/css/admin.css' %}">
+</head>
+<body>
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3" id="sidebar" style="min-height: 100vh; width: 250px;">
+    <h4 class="text-center">Admin</h4>
+    <ul class="nav flex-column mt-4">
+      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="bi bi-box-seam me-2"></i>Productos</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="bi bi-people-fill me-2"></i>Usuarios</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="bi bi-cash-coin me-2"></i>Ventas</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="bi bi-bar-chart-line-fill me-2"></i>Visitas</a></li>
+      <li class="nav-item"><a class="nav-link text-white" href="#"><i class="bi bi-bell-fill me-2"></i>Notificaciones</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="w-100" id="page-content">
+    <nav class="navbar navbar-light bg-light px-4">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <div>
+          <i id="toggle-btn" class="bi bi-list fs-3 me-3"></i>
+          <span class="navbar-brand">Panel de Administración</span>
+        </div>
+        <span class="badge bg-primary"><i class="bi bi-bell me-1"></i>5 notificaciones</span>
+      </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+      <h2 class="mb-4">Resumen General</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-cash-coin me-2"></i>Ventas</h5>
+              <p class="card-text">$5.200</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-info text-white">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-eye me-2"></i>Visitas</h5>
+              <p class="card-text">2.340</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-warning text-white">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-people me-2"></i>Usuarios</h5>
+              <p class="card-text">198</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4>Gráfico de Ventas</h4>
+      <canvas id="ventasChart" height="100"></canvas>
+
+      <!-- Tarjetas nuevas -->
+     
+      <div class="row mt-5">
+        <!-- Clientes Nuevos -->
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+              <div class="card-header bg-light">
+                <strong><i class="bi bi-person-plus me-2"></i>Clientes Nuevos</strong>
+              </div>
+              <ul class="list-group list-group-flush">
+                {% for user in users %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>{{ user.email }}</strong><br>
+                    <small>UID: {{ user.uid }}</small>
+                  </div>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-center">
+                  No hay clientes registrados aún.
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+
+
+        <!-- Top Productos -->
+        <div class="col-lg-6 mb-4">
+          <div class="card">
+            <div class="card-header bg-light">
+              <strong><i class="bi bi-star-fill me-2"></i>Productos Más Vendidos</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex">
+                <img src="static/images/taladro.jpg" width="60" class="me-3" alt="Taladro">
+                <div class="flex-grow-1">
+                  <strong>Taladro Industrial</strong>
+                  <div class="small text-muted">Potente y compacto para uso prolongado.</div>
+                  <div>
+                    <small><del>$90.000</del> <strong>$75.000</strong> - 34 ventas</small>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item d-flex">
+                <img src="static/images/martillo.jpg" width="60" class="me-3" alt="Martillo">
+                <div class="flex-grow-1">
+                  <strong>Martillo Forjado</strong>
+                  <div class="small text-muted">Resistente para trabajos pesados.</div>
+                  <div>
+                    <small><del>$18.000</del> <strong>$15.000</strong> - 50 ventas</small>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de órdenes -->
+      <h4 class="mt-5">Órdenes Recientes</h4>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID Orden</th>
+              <th>Nombre del Producto</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
+              <th>Costo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#001</td>
+              <td>Taladro Industrial</td>
+              <td>2</td>
+              <td>2025-04-14</td>
+              <td>$150.000</td>
+              <td><span class="badge bg-success"><i class="bi bi-check-circle-fill me-1"></i>Completado</span></td>
+            </tr>
+            <tr>
+              <td>#002</td>
+              <td>Martillo Forjado</td>
+              <td>1</td>
+              <td>2025-04-13</td>
+              <td>$15.000</td>
+              <td><span class="badge bg-warning text-dark"><i class="bi bi-clock-fill me-1"></i>Pendiente</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div> <!-- /container-fluid -->
+  </div> <!-- /page-content -->
+</div> <!-- /wrapper -->
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static '/js/admin.js' %}"></script>
+<script>
+ const toggleBtn = document.getElementById('toggle-btn');
+const sidebar = document.getElementById('sidebar');
+const pageContent = document.getElementById('page-content');
+
+
+toggleBtn.addEventListener('click', () => {
+  sidebar.classList.toggle('closed');
+  pageContent.classList.toggle('shifted');
+});
+</script>
+</body>
+</html>

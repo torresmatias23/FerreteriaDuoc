@@ -1,0 +1,58 @@
+/* Sidebar animación */
+#sidebar {
+    transition: transform 0.3s ease;
+    min-height: 100vh;
+    width: 250px;
+    position: fixed; /* Fijamos el sidebar en la pantalla */
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+  
+  #sidebar.closed {
+    transform: translateX(-100%);
+  }
+  
+  /* Página se ajusta cuando sidebar se oculta */
+  #page-content {
+    transition: margin-left 0.3s ease;
+    margin-left: 250px;
+    padding-left: 15px; /* Añadimos algo de padding para que no quede tan pegado al borde */
+  }
+  
+  /* Cuando el sidebar está cerrado, movemos el contenido */
+  #page-content.shifted {
+    margin-left: 0;
+  }
+  
+  /* Tarjetas bonitas */
+  .card {
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Lista en tarjetas */
+  .list-group-item {
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .list-group-item:last-child {
+    border-bottom: none;
+  }
+  
+  /* Tabla */
+  .table thead th {
+    background-color: #f8f9fa;
+  }
+  
+  .table td,
+  .table th {
+    vertical-align: middle;
+  }
+  
+  /* Imágenes de productos */
+  .list-group-item img {
+    border-radius: 6px;
+  }
+  

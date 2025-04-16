@@ -29,4 +29,5 @@ urlpatterns = [
     path('contacto/', views.contacto, name='contacto'),
     path('producto/<str:producto_id>/', views.detalle_producto, name='detalle_producto'),
     path('subir/', views.subir_producto, name='subir_producto'),
+    path('dashboard_admin', views.dashboard_admin, name='dashboard_admin'),
 ]
