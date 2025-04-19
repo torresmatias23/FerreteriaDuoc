@@ -206,3 +206,27 @@ def login_usuario(request):
 def logout_usuario(request):
     logout(request)
     return redirect("login")
+
+def carrito(request):
+    return render(request, 'carrito.html')
+
+def checkout(request):
+    return render(request, 'checkout.html')
+
+def nosotros(request):
+    return render(request, 'nosotros.html')
+
+def ordenes_bodega(request):
+    return render(request, 'ordenes_bodega.html')
+
+def pagos(request):
+    return render(request, 'pagos.html')
+
+def pedidos(request):
+    return render(request, 'pedidos.html')
+
+def recuperar_contrasena(request):
+    return render(request, 'recuperar_contrasena.html')
+
+def reportes(request):
+    return render(request, 'reportes.html')

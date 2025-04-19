@@ -21,13 +21,29 @@ from core.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home, name='home'),
+    path('', views.home, name='home'),
     path('productos/', views.productos, name='productos'),
-    path('Registro/',registrar_usuario,name="registro"),
-    path('login/',login_usuario,name="login"),
-    path('logout/', views.logout_usuario, name='logout'),
-    path('contacto/', views.contacto, name='contacto'),
     path('producto/<str:producto_id>/', views.detalle_producto, name='detalle_producto'),
+    
+    # Usuario
+    path('Registro/', registrar_usuario, name="registro"),
+    path('login/', login_usuario, name="login"),
+    path('logout/', views.logout_usuario, name='logout'),
+    path('recuperar_contrasena/', views.recuperar_contrasena, name='recuperar_contrasena'),
+    
+    # Navegación general
+    path('contacto/', views.contacto, name='contacto'),
+    path('nosotros/', views.nosotros, name='nosotros'),
+    
+    # Carrito y pedidos
+    path('carrito/', views.carrito, name='carrito'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('pagos/', views.pagos, name='pagos'),
+    path('pedidos/', views.pedidos, name='pedidos'),
+    
+    # Admin y gestión
+    path('dashboard_admin/', views.dashboard_admin, name='dashboard_admin'),
+    path('ordenes_bodega/', views.ordenes_bodega, name='ordenes_bodega'),
+    path('reportes/', views.reportes, name='reportes'),
     path('subir/', views.subir_producto, name='subir_producto'),
-    path('dashboard_admin', views.dashboard_admin, name='dashboard_admin'),
 ]
