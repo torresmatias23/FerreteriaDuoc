@@ -34,7 +34,7 @@ def home(request):
 def clientes_nuevos(request):
     users = []
     page = auth.list_users()
-    while page:
+    while page: 
         for user in page.users:
             users.append({
                 'uid': user.uid,

@@ -1,26 +1,25 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #222;
-    display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
 }
 
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: #111;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
-    text-align: center;
-    color: white;
+.container {
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    margin: 2rem;
+    margin-left:5%;
+
+    background-color: #0000003a;
 }
 
 h2 {
-    color: orange;
+    color: rgb(0, 0, 0);
     margin-bottom: 20px;
 }
 

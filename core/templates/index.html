@@ -334,10 +334,10 @@
         <h2 class="display-1 ls-1">
           <span class="fw-bold text-warning">Ferremax</span> Más a tu alcance <span class="fw-bold">Compra online</span>
         </h2>
-        <p class="fs-4 text-dark">Recibe tu pedido en la puerta de tu hogar.</p>
+        <p class="fs-4 text-dark">Y recibe tu pedido en la puerta de tu hogar.</p>
         <div class="d-flex gap-3">
           <a href="#" class="btn btn-warning text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Ir a comprar</a>
-          <a href="#" class="btn btn-dark text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Iniciar sesión</a>
+          <a href="#destacados" class="btn btn-dark text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Iniciar sesión</a>
         </div>
         <div class="row my-5">
           <div class="col">
@@ -418,34 +418,6 @@
 </section>
 
 
-<section id="productos-destacados" class="container my-5">
-  <h2 class="text-center mb-4">Productos destacados</h2>
-  <div class="row justify-content-center row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-    {% for producto in productos %}
-      <div class="col d-flex justify-content-center">
-        <div class="card card-product shadow-sm h-100">
-          <a href="{% url 'detalle_producto' producto.id %}" class="text-decoration-none">
-            <div class="producto-img-container">
-              <img src="{{ producto.imagen }}" alt="{{ producto.nombre }}" class="card-img-top producto-img">
-            </div>
-          </a>
-          <div class="card-body d-flex flex-column justify-content-between text-center">
-            <div class="mb-auto">
-              <h5 class="card-title mb-2">{{ producto.nombre }}</h5>
-            </div>
-            <div>
-              <p class="card-text text-dark font-weight-bold mb-3">${{ producto.precio }}</p>
-              <a href="#" class="btn btn-add w-100">🛒 Agregar al carrito</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-</section>
-
-
-
     <!-- CATEGORIAS -->
     <section class="py-5 overflow-hidden">
       <div class="container-lg">
@@ -500,7 +472,7 @@
     </section>
 
     <!-- DESTACADOS -->
-    <section class="pb-5">
+    <section id="destacados" class="pb-5">
       <div class="container-lg">
 
         <div class="row">
@@ -517,16 +489,19 @@
           <div class="col-md-12">
 
             <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
-                  
+                 
+              
+              <!-- INTENTO DE AGREGAR PRODUCTO-->
+              {% for producto in productos %}
               <div class="col">
                 <div class="product-item">
                   <figure>
                     <a href="index.html" title="Product Title">
-                      <img src="static/images/bolsaherramientas.jpg" alt="Product Thumbnail" class="tab-image" style="max-width: 100%; height: auto;">
+                      <img src="{{ producto.imagen }}" alt="Product Thumbnail" class="tab-image" style="max-width: 100%; height: auto;">
                     </a>
                   </figure>
                   <div class="d-flex flex-column text-center">
-                    <h3 class="fs-6 fw-normal">Bolsa de herramientas</h3>
+                    <h3 class="fs-6 fw-normal">{{ producto.nombre }}</h3>
                     <div>
                       <span class="rating">
                         <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
@@ -538,9 +513,7 @@
                       <span>(12)</span>
                     </div>
                     <div class="d-flex justify-content-center align-items-center gap-2">
-                      <del>$24.000</del>
-                      <span class="text-dark fw-semibold">$18.00</span>
-                      <span class="badge border border-dark-subtle rounded-0 fw-normal px-1 fs-7 lh-1 text-body-tertiary">10% OFF</span>
+                      <span class="text-dark fw-semibold">${{producto.precio}}</span>
                     </div>
                     <div class="button-area p-3 pt-0">
                       <div class="row g-1 mt-2">
@@ -552,6 +525,7 @@
                   </div>
                 </div>
               </div>
+            {% endfor %}
 
              <!-- Producto 1: Taladro Percutor -->
               <div class="col">
