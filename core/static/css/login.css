@@ -58,3 +58,20 @@ button:hover {
 .register-link:hover {
     text-decoration: underline;
 }
+.alert {
+    background-color: #400 !important;
+    color: #fff;
+    border: 1px solid #f44336;
+}
+
+.btn-close {
+    filter: invert(1);
+}
+
+input:invalid {
+    border-color: #f44336; /* rojo */
+}
+
+input:valid {
+    border-color: #4caf50; /* verde */
+}

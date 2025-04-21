@@ -174,38 +174,30 @@ def dashboard_admin(request):
 
 
 
+from django.contrib import messages
+from firebase_admin import auth, _auth_utils  # Asegúrate de importar _auth_utils
+
 def login_usuario(request):
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
         try:
-            # Autenticación con Firebase
             firebase_user = auth.get_user_by_email(email)
-            
-            # Intentamos encontrar el usuario en Django (puede que no esté registrado)
             user, created = User.objects.get_or_create(username=firebase_user.uid, email=email)
-            
-            # Aquí puedes implementar la verificación de la contraseña, si es necesario.
-            # Para este ejemplo asumimos que el usuario ya está registrado en Django.
-
-            # Si el usuario no tiene contraseña en Django (porque Firebase no la sincroniza),
-            # puedes establecer una contraseña aleatoria o pedirle que la cambie.
-            
-            # Iniciar la sesión del usuario en Django
             django_login(request, user)
-
-            # Redirigir al home (página principal)
             return redirect('/')
-        except auth.AuthError as e:
-            # Si hay algún error con Firebase (como usuario no encontrado o contraseña incorrecta)
-            return JsonResponse({"error": "Usuario no encontrado o contraseña incorrecta"})
+        except _auth_utils.UserNotFoundError:
+            messages.error(request, "El correo electrónico no está registrado.")
+        except Exception as e:
+            messages.error(request, "Ocurrió un error al intentar iniciar sesión.")
 
     return render(request, "login.html")
 
 
+
 def logout_usuario(request):
     logout(request)
-    return redirect("login")
+    return redirect("home")
 
 def carrito(request):
     return render(request, 'carrito.html')
