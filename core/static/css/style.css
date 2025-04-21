@@ -30,7 +30,7 @@ body {
   --bs-body-line-height: 2;
   --bs-body-color: #747474;
 
-  --bs-primary: #6BB252;
+  --bs-primary: #ce7829;
   --bs-primary-rgb: 107, 178, 82;
   
   --bs-secondary: #364127;
@@ -39,7 +39,7 @@ body {
   --bs-danger: #F95F09;
   --bs-danger-rgb: 249, 95, 9;
 
-  --bs-success: #a3be4c;
+  --bs-success: #bead4c;
   --bs-success-rgb: 163, 190, 76;
   
   --bs-primary-bg-subtle: #FFF9EB;
@@ -79,6 +79,7 @@ body {
   --bs-btn-disabled-border-color: #fff3cd;
   --bs-gradient: none;
 }
+
 .btn-outline-light {
   --bs-btn-color: #747474;
   --bs-btn-border-color: #EFEFEF;
@@ -185,6 +186,43 @@ h1,h2,h3,h4,h5,h6 {
   z-index: 111;
   background: #fff;
 }
+#card-info-banner .card {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+
+#card-info-banner .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+#card-info-banner .row {
+  align-items: center;
+}
+
+#card-info-banner .card h5 {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+#card-info-banner .card p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+#card-info-banner svg {
+  width: 50px;
+  height: 50px;
+}
+
+#card-info-banner .col {
+  padding: 0 0.5rem;
+}
 
 .preloader-wrapper .preloader {
   margin: 20% auto 0;
@@ -222,6 +260,33 @@ h1,h2,h3,h4,h5,h6 {
   transition: transform 0.3s ease-in-out;
   overflow: hidden;
 }
+
+/*CSS CATALOGOS*/
+#catalogos .catalogo-img-container {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem;
+}
+
+#catalogos .catalogo-img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+#catalogos .card {
+  transition: transform 0.2s ease;
+}
+
+#catalogos .card:hover {
+  transform: scale(1.02);
+}
+
+
 
 /* Contenedor de imagen con tamaño fijo */
 .producto-img-container {
@@ -642,23 +707,23 @@ a.btn-link.text-light:after {
 	}
 }
 /* ============ CSS Productos destacados// ============ */
-.card-product {
+#productos-destacados .card-product {
   width: 100%;
   max-width: 18rem;
   height: 100%;
-  min-height: 420px; /* altura fija para que todos sean iguales */
+  min-height: 420px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 0.75rem;
   display: flex;
   flex-direction: column;
 }
 
-.card-product:hover {
+#productos-destacados .card-product:hover {
   transform: translateY(-8px);
   box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15);
 }
 
-.producto-img-container {
+#productos-destacados .producto-img-container {
   height: 180px;
   display: flex;
   justify-content: center;
@@ -667,20 +732,20 @@ a.btn-link.text-light:after {
   background-color: #f8f9fa;
 }
 
-.producto-img {
+#productos-destacados .producto-img {
   max-height: 100%;
   width: auto;
   object-fit: contain;
 }
 
-.btn-add {
-  background-color: #28a745;
+#productos-destacados .btn-add {
+  background-color: #fd7e14; /* naranjo Bootstrap (orange) */
   color: white;
   font-weight: bold;
   border-radius: 0.5rem;
   transition: background-color 0.3s;
 }
 
-.btn-add:hover {
-  background-color: #218838;
+#productos-destacados .btn-add:hover {
+  background-color: #e66b00;
 }
