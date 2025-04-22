@@ -64,7 +64,14 @@
                 <option value="adhesivos">Adhesivos</option>
                 <option value="seguridad">Seguridad</option>
             </select>
-            <input type="number" name="precio" placeholder="Precio" min="10" required>
+
+            <select name="seccion" required>
+                <option value="" disabled selected>Sección</option>
+                <option value="valorados">Más valorados</option>
+                <option value="destacados">Destacados</option>
+                <option value="general">General</option>
+            </select>
+                        <input type="number" name="precio" placeholder="Precio" min="10" required>
             <input type="url" name="imagen" placeholder="URL de imagen" required>
             <div class="button-group">
                 <button type="submit" class="btn btn-warning">Subir producto</button>

@@ -110,6 +110,7 @@ def subir_producto(request):
         nombre = request.POST["nombre"]
         descripcion = request.POST["descripcion"]
         categoria = request.POST["categoria"]
+        seccion = request.POST["seccion"]
         precio = int(request.POST["precio"])
         imagen = request.POST["imagen"]
 
@@ -117,6 +118,7 @@ def subir_producto(request):
             "nombre": nombre,
             "descripcion": descripcion,
             "categoria": categoria,
+            "seccion": seccion,
             "precio": precio,
             "imagen": imagen
         })
