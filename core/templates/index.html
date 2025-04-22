@@ -289,19 +289,21 @@
 
             <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center">
               <ul class="d-flex list-unstyled m-0">
-                  {% if user.is_authenticated %}
+                  {% if nombre_usuario %}
+                  <li>
+                    <span style="color: #000000; font-weight: bold; font-size: 17px; white-space: nowrap;">
+                      Hola, {{ nombre_usuario }} {{ apellido_usuario }}!
+                    </span>
+                  </li>
                       <li>
-                          <span style="color: #000000;">Hola, {{ user.email }}!</span>
+                          <!-- Botón de logout -->
+                          <form action="{% url 'logout' %}" method="post">
+                              {% csrf_token %}
+                              <button style="background: transparent; border: none; cursor: pointer;" (click)="logout()">
+                                <i class="fas fa-sign-out-alt" style="font-size: 22px; color: #000;"></i>
+                              </button>
+                          </form>
                       </li>
-                      <li>
-                        <!-- Botón de logout -->
-                        <form action="{% url 'logout' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger p-2 mx-2">
-                                Logout
-                            </button>
-                        </form>
-                    </li>
                   {% else %}
                       <li>
                           <a href="{% url 'login' %}" class="p-2 mx-2" style="color: rgb(0, 0, 0);">
@@ -320,8 +322,8 @@
                       </a>
                   </li>
               </ul>
-          </div>
-        </div>
+            </div>
+            
     </div>
 </header>
 

@@ -18,16 +18,34 @@ db = firestore.client()
 
 def home(request):
     productos = []
+    nombre_usuario = ""
+    apellido_usuario = ""
+
     try:
+        # Obtener el UID guardado en sesión
+        uid = request.session.get("firebase_uid")
+        if uid:
+            user_doc = db.collection("usuarios").document(uid).get()
+            if user_doc.exists:
+                user_data = user_doc.to_dict()
+                nombre_usuario = user_data.get("primer_nombre", "")
+                apellido_usuario = user_data.get("primer_apellido", "").split(" ")[0]
+
+        # Traer productos
         docs = db.collection("productos").stream()
         for doc in docs:
             data = doc.to_dict()
             data['id'] = doc.id
             productos.append(data)
-    except Exception as e:
-        print("Error al traer productos:", e)
 
-    return render(request, 'index.html', {'productos': productos})
+    except Exception as e:
+        print("Error al traer productos o datos del usuario:", e)
+
+    return render(request, 'index.html', {
+        'productos': productos,
+        'nombre_usuario': nombre_usuario,
+        'apellido_usuario': apellido_usuario
+    })
 
 
 
@@ -128,28 +146,37 @@ def contacto(request):
 
 def registrar_usuario(request):
     if request.method == "POST":
+        # Datos del formulario
         email = request.POST["email"]
         password = request.POST["password"]
+        primer_nombre = request.POST["primer_nombre"]
+        segundo_nombre = request.POST.get("segundo_nombre", "")  # opcional
+        primer_apellidos = request.POST["primer_apellido"]
+        segundo_apellido = request.POST["segundo_apellido"]
+        telefono = request.POST["telefono"]
+
         try:
-            # Crear usuario en Firebase
+            # Crear usuario en Firebase Authentication
             user = auth.create_user(email=email, password=password)
-            
-            # Crear un objeto de usuario en Django
-            # Usamos el mismo email y contraseña para crear el usuario en Django
-            django_user = User.objects.create_user(username=email, email=email, password=password)
-            
-            # Iniciar sesión automáticamente al registrarse
-            login(request, django_user)
+            uid = user.uid
 
-            # Mostrar mensaje de éxito
-            messages.success(request, "¡Registro exitoso! Ya estás logueado.")
-
-            # Redirigir a la página principal (index)
-            return redirect('/')
+            # Guardar información del usuario en Firestore
+            db.collection("usuarios").document(uid).set({
+                "email": email,
+                "primer_nombre": primer_nombre,
+                "segundo_nombre": segundo_nombre,
+                "primer_apellido": primer_apellidos,
+                "segundo_apellido": segundo_apellido,
+                "telefono": telefono,
+                "tipo_usuario": "cliente",
+            })
+            messages.success(request, "¡Registro exitoso!")
+            return redirect('/login')
         except Exception as e:
-            return JsonResponse({"error": str(e)})
+            messages.error(request, f"Ocurrió un error al registrar: {str(e)}")
 
     return render(request, "registro.html")
+
 
 def dashboard_admin(request):
     users = []
@@ -177,22 +204,41 @@ def dashboard_admin(request):
 from django.contrib import messages
 from firebase_admin import auth, _auth_utils  # Asegúrate de importar _auth_utils
 
-def login_usuario(request):
+def login_usuario(request): 
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
         try:
             firebase_user = auth.get_user_by_email(email)
-            user, created = User.objects.get_or_create(username=firebase_user.uid, email=email)
-            django_login(request, user)
-            return redirect('/')
-        except _auth_utils.UserNotFoundError:
+
+            uid = firebase_user.uid
+            request.session["firebase_uid"] = uid
+
+            # Obtener el tipo_usuario desde Firestore
+            doc_ref = db.collection("usuarios").document(uid)
+            doc = doc_ref.get()
+
+            if doc.exists:
+                datos_usuario = doc.to_dict()
+                tipo_usuario = datos_usuario.get("tipo_usuario")
+
+                # Crear el usuario en Django
+                user, created = User.objects.get_or_create(username=uid, email=email)
+                django_login(request, user)
+
+                # Redirigir según tipo de usuario
+                if tipo_usuario == "admin":
+                    return redirect("dashboard_admin")  # usa el name del path
+                else:
+                    return redirect("home")
+            else:
+                messages.error(request, "No se encontró el usuario en la base de datos.")
+        except auth.UserNotFoundError:
             messages.error(request, "El correo electrónico no está registrado.")
         except Exception as e:
-            messages.error(request, "Ocurrió un error al intentar iniciar sesión.")
+            messages.error(request, f"Ocurrió un error al iniciar sesión: {str(e)}")
 
     return render(request, "login.html")
-
 
 
 def logout_usuario(request):

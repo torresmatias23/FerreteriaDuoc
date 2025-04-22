@@ -22,6 +22,11 @@
         
         <form method="post">
             {% csrf_token %}
+            <input type="text" name="primer_nombre" placeholder="Primer nombre" required>
+            <input type="text" name="segundo_nombre" placeholder="Segundo nombre">
+            <input type="text" name="primer_apellido" placeholder="Primer Apellido" required>
+            <input type="text" name="segundo_apellido" placeholder="Segundo Apellido" required>
+            <input type="tel" name="telefono" placeholder="Teléfono" required>
             <input type="email" name="email" placeholder="Correo electrónico" required>
             <input type="password" name="password" placeholder="Contraseña" required>
             <button type="submit">Registrarse</button>
