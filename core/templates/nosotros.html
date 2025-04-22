@@ -1,1 +1,159 @@
-<!--Información sobre la empresa "FERREMAS".-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ferremax</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="{% static 'css/nosotros.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  </head>
+
+  <!-- NAVBAR -->
+  <header style="padding: 2rem 0; font-size: 1.2rem; background-color: #aa8040;">
+    <div class="container-fluid">
+      <div class="row border-bottom align-items-center justify-content-center" style="min-height: 120px;">
+        
+        <div class="col-sm-4 col-lg-2 text-center d-flex gap-3 justify-content-center">
+          <div class="d-flex align-items-center my-3">
+            <a href="index.html">
+              <img src="{% static 'images/logoferre.png' %}" alt="logo" class="img-fluid" style="max-height: 120px; width: auto;">
+            </a>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="search-bar row bg-light p-3 rounded-4">
+            <div class="col-md-4 d-none d-md-block">
+              <select class="form-select border-0 bg-transparent">
+                <option>Categorías</option>
+                <option>Hogar</option>
+                <option>Jardin</option>
+                <option>Plomería</option>
+                <option>Gasfitería</option>
+                <option>Herramientas</option>
+                <option>Maquinaria</option>
+                <option>Seguridad</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <ul class="navbar-nav list-unstyled d-flex flex-row gap-4 justify-content-center align-items-center mb-0 fw-bold text-uppercase text-dark">
+            <li class="nav-item active">
+              <a  class="nav-link" style="padding: 0.75rem 1.5rem;">Inicio</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0.75rem 1.5rem;">Páginas</a>
+              <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
+                <li><a href="index.html" class="dropdown-item">Perfil</a></li>
+                <li><a href="index.html" class="dropdown-item">Productos</a></li>
+                <li><a  class="dropdown-item">Ropa y Accesorios</a></li>
+                <li><a href="index.html" class="dropdown-item">Hot Sale</a></li>
+                <li><a href="{% url 'contacto' %}" class="dropdown-item">Contacto</a></li>
+                <li><a href="index.html" class="dropdown-item">Opiniones y comentarios</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <html>
+    <body class="is-preload">
+      <div id="wrapper">
+        <div id="main">
+          <div class="inner">
+            <header id="header">
+              <a href="" class="logo"><strong>FERREMAX</strong> : Calidad y precio en producto</a>
+            </header>
+
+            <!-- Banner -->
+            <section id="banner">
+              <div class="content">
+                <header>
+                  <h1>Ferremax<br />AVANZA CONTIGO</h1>
+                  <p>Tu ferreteria de confianza</p>
+                </header>
+                <p>Con años de experiencia en el rubro, en nuestras dos tiendas físicas y ahora también online, te ofrecemos todo tipo de productos de ferretería con la mejor atención y grandes descuentos. Ya sea para el hogar, obra o taller, contamos con un amplio stock y asesoramiento personalizado. ¡Todo lo que necesitás, al mejor precio en un solo lugar y un solo click!</p>
+              </div>
+              <span class="image object">
+                <img src="{% static 'images/tienda_ferre.png' %}" alt="" />
+              </span>
+            </section>
+
+            <!-- Section -->
+            <section>
+                <header class="major">
+                  <h2>¿Por qué elegir FERREMAX?</h2>
+                </header>
+                <div class="features">
+                  <article>
+                    <span class="icon bi bi-hand-thumbs-up"></span>
+                    <div class="content">
+                      <h3>100% satisfacción garantizada</h3>
+                      <p>Nos comprometemos con la calidad y la atención. Si no estás conforme, ¡lo resolvemos de inmediato!</p>
+                    </div>
+                  </article>
+                  <article>
+                    <span class="icon bi bi-truck"></span>
+                    <div class="content">
+                      <h3>Delivery rápido y seguro</h3>
+                      <p>Recibe tus productos donde los necesites, sin demoras y con completo seguimiento para mayor confianza al cliente.</p>
+                    </div>
+                  </article>
+                  <article>
+                    <span class="icon bi bi-tags"></span>
+                    <div class="content">
+                      <h3>Variedad y precios competitivos</h3>
+                      <p>Contamos con un stock completo en ferretería, distintas marcas de herramientas, materiales y más. Siempre con descuentos para nuestros clientes.</p>
+                    </div>
+                  </article>
+                  <article>
+                    <span class="icon bi bi-award"></span>
+                    <div class="content">
+                      <h3>Contamos con años de experiencia en el rubro</h3>
+                      <p>Sabemos lo que necesitás. Te asesoramos con conocimiento y profesionalismo.</p>
+                    </div>
+                  </article>
+                  <article>
+                    <span class="icon bi bi-stars"></span>
+                    <div class="content">
+                      <h3>Nos diferenciamos ampliamente de la competencia</h3>
+                      <p>En Ferremax no vendemos por vender: te acompañamos, resolvemos y buscamos que vuelvas por gusto, no por obligación.</p>
+                    </div>
+                  </article>
+                </div>
+              </section>
+              
+
+            <!-- Footer -->
+            <footer id="footer">
+                <div class="copyright">
+                  <h5 class="text-uppercase mb-2">FERREMAX</h5>
+                  <p>&copy; 2025 FERREMAX. Todos los derechos reservados.</p>
+                </div>
+            </footer>
+              
+          </div>
+        </div>
+      </div>
+    </body>
+  </html>
