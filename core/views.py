@@ -204,7 +204,7 @@ def dashboard_admin(request):
 
 
 from django.contrib import messages
-from firebase_admin import auth, _auth_utils  # Asegúrate de importar _auth_utils
+from firebase_admin import auth, _auth_utils  
 
 def login_usuario(request): 
     if request.method == "POST":
@@ -249,6 +249,109 @@ def logout_usuario(request):
 
 def carrito(request):
     return render(request, 'carrito.html')
+
+from django.views.decorators.http import require_POST
+
+def usuarios(request):
+    usuarios_completos = []
+
+    try:
+        page = auth.list_users()
+        while page:
+            for user in page.users:
+                uid = user.uid
+                email = user.email
+
+                user_doc = db.collection("usuarios").document(uid).get()
+                if user_doc.exists:
+                    datos = user_doc.to_dict()
+                    usuarios_completos.append({
+                        "uid": uid,
+                        "email": email,
+                        "primer_nombre": datos.get("primer_nombre", ""),
+                        "segundo_nombre": datos.get("segundo_nombre", ""),
+                        "primer_apellido": datos.get("primer_apellido", ""),
+                        "segundo_apellido": datos.get("segundo_apellido", ""),
+                        "telefono": datos.get("telefono", ""),
+                        "tipo_usuario": datos.get("tipo_usuario", "cliente"),
+                    })
+                else:
+                    usuarios_completos.append({
+                        "uid": uid,
+                        "email": email,
+                        "primer_nombre": "",
+                        "segundo_nombre": "",
+                        "primer_apellido": "",
+                        "segundo_apellido": "",
+                        "telefono": "",
+                        "tipo_usuario": "cliente",
+                    })
+
+            if page.has_next_page():
+                page = page.get_next_page()
+            else:
+                break
+    except Exception as e:
+        print("Error al obtener usuarios:", e)
+
+    return render(request, "usuarios.html", {"usuarios": usuarios_completos})
+
+@require_POST
+def cambiar_rol_usuario(request):
+    uid = request.POST.get("uid")
+    nuevo_rol = request.POST.get("tipo_usuario")
+
+    if not uid or not nuevo_rol:
+        messages.error(request, "Faltan datos para actualizar el rol.")
+        return redirect("usuarios")
+
+    try:
+        user_ref = db.collection("usuarios").document(uid)
+        user_ref.update({"tipo_usuario": nuevo_rol})
+        messages.success(request, "Rol actualizado correctamente.")
+    except Exception as e:
+        messages.error(request, f"Error al actualizar el rol: {e}")
+
+    return redirect("usuarios")
+
+@require_POST
+def eliminar_usuario(request):
+    uid = request.POST.get("uid")
+
+    try:
+        auth.delete_user(uid)
+        db.collection("usuarios").document(uid).delete()
+        messages.success(request, "Usuario eliminado correctamente.")
+    except Exception as e:
+        messages.error(request, f"Error al eliminar usuario: {str(e)}")
+
+    return redirect("usuarios")
+
+from django.views.decorators.http import require_http_methods
+
+@require_http_methods(["POST"])
+def editar_usuario(request):
+    uid = request.POST.get("uid")
+    primer_nombre = request.POST.get("primer_nombre")
+    segundo_nombre = request.POST.get("segundo_nombre")
+    primer_apellido = request.POST.get("primer_apellido")
+    segundo_apellido = request.POST.get("segundo_apellido")
+    telefono = request.POST.get("telefono")
+
+    try:
+        user_ref = db.collection("usuarios").document(uid)
+        user_ref.update({
+            "primer_nombre": primer_nombre,
+            "segundo_nombre": segundo_nombre,
+            "primer_apellido": primer_apellido,
+            "segundo_apellido": segundo_apellido,
+            "telefono": telefono,
+        })
+        messages.success(request, "Usuario actualizado correctamente.")
+    except Exception as e:
+        messages.error(request, f"Error al editar usuario: {e}")
+
+    return redirect("usuarios")
 
 def checkout(request):
     return render(request, 'checkout.html')
