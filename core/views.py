@@ -48,7 +48,6 @@ def home(request):
     })
 
 
-
 def clientes_nuevos(request):
     users = []
     page = auth.list_users()
@@ -373,3 +372,110 @@ def recuperar_contrasena(request):
 
 def reportes(request):
     return render(request, 'reportes.html')
+
+def perfil(request):
+    nombre_usuario = ""
+    apellido_usuario = ""
+    segundo_apellido = ""
+    telefono = ""
+    tipo_usuario = ""
+    email = ""
+
+    try:
+        uid = request.session.get("firebase_uid")
+        if uid:
+            user_ref = db.collection("usuarios").document(uid)
+
+            # Si se envió el formulario
+            if request.method == 'POST':
+                nuevos_datos = {
+                    "primer_nombre": request.POST.get("primer_nombre", ""),
+                    "primer_apellido": request.POST.get("primer_apellido", ""),
+                    "segundo_apellido": request.POST.get("segundo_apellido", ""),
+                    "telefono": request.POST.get("telefono", ""),
+                    "tipo_usuario": request.POST.get("tipo_usuario", ""),
+                    "email": request.POST.get("email", "")
+                }
+                user_ref.update(nuevos_datos)
+
+            user_doc = user_ref.get()
+            if user_doc.exists:
+                user_data = user_doc.to_dict()
+                nombre_usuario = user_data.get("primer_nombre", "")
+                apellido_usuario = user_data.get("primer_apellido", "").split(" ")[0]
+                segundo_apellido = user_data.get("segundo_apellido", "")
+                telefono = user_data.get("telefono", "")
+                tipo_usuario = user_data.get("tipo_usuario", "")
+                email = user_data.get("email", "")
+
+    except Exception as e:
+        print("Error al traer o actualizar datos del usuario:", e)
+
+    return render(request, 'perfil.html', {
+        'nombre_usuario': nombre_usuario,
+        'apellido_usuario': apellido_usuario,
+        'segundo_apellido': segundo_apellido,
+        'telefono': telefono,
+        'tipo_usuario': tipo_usuario,
+        'email': email
+    })
+
+    print(">>> ENTRANDO A LA VISTA PERFIL <<<")
+
+    nombre_usuario = ""
+    apellido_usuario = ""
+    segundo_apellido = ""
+    telefono = ""
+    tipo_usuario = ""
+    email = ""
+
+    try:
+        uid = request.session.get("firebase_uid")
+        print("UID en sesión:", uid)
+
+        if uid:
+            user_doc = db.collection("usuarios").document(uid).get()
+            if user_doc.exists:
+                user_data = user_doc.to_dict()
+                nombre_usuario = user_data.get("primer_nombre", "")
+                apellido_usuario = user_data.get("primer_apellido", "").split(" ")[0]
+                segundo_apellido = user_data.get("segundo_apellido", "")
+                telefono = user_data.get("telefono", "")
+                tipo_usuario = user_data.get("tipo_usuario", "")
+                email = user_data.get("email", "")
+
+    except Exception as e:
+        print("Error al traer datos del usuario:", e)
+
+    return render(request, 'perfil.html', {
+        'nombre_usuario': nombre_usuario,
+        'apellido_usuario': apellido_usuario,
+        'segundo_apellido': segundo_apellido,
+        'telefono': telefono,
+        'tipo_usuario': tipo_usuario,
+        'email': email
+    })
+
+    print(">>> ENTRANDO A LA VISTA PERFIL <<<")
+
+    nombre_usuario = ""
+    apellido_usuario = ""
+
+    try:
+        uid = request.session.get("firebase_uid")
+        print("UID en sesión:", uid)
+
+        if uid:
+            user_doc = db.collection("usuarios").document(uid).get()
+            if user_doc.exists:
+                user_data = user_doc.to_dict()
+                nombre_usuario = user_data.get("primer_nombre", "")
+                apellido_usuario = user_data.get("primer_apellido", "").split(" ")[0]
+
+    except Exception as e:
+        print("Error al traer datos del usuario:", e)
+
+    return render(request, 'perfil.html', {
+        'nombre_usuario': nombre_usuario,
+        'apellido_usuario': apellido_usuario
+    })
