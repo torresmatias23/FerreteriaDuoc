@@ -1,55 +1,20 @@
-/* styles.css */
-
-/* Asegura que el formulario de acciones esté alineado correctamente */
-.form-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-button {
-    width: 100%;
-}
-
-/* Para dar espacio entre los botones */
-button.btn {
-    margin-top: 5px;
-}
-
-/* Mejorar la visualización de los botones en las filas */
-table .btn {
-    width: auto;
-    padding: 5px 10px;
-}
-
-/* Para asegurar que el formulario de editar usuario esté alineado */
-table td form {
-    display: inline-block;
-}
-
-/* Espaciado entre celdas de la tabla */
-table td {
-    vertical-align: middle;
-}
-
-/* Mejorar la apariencia de los inputs y select */
-input.form-control, select.form-select {
-    margin-bottom: 5px;
-}
-td form {
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* Añadir espacio entre los botones */
-}
-
-/* Ajustar el tamaño de los botones para que se vean bien */
-button.btn {
-    width: 100%;
-    padding: 5px 10px;
+html, body {
+    height: 100%;
     margin: 0;
+    padding: 0;
+}
+body {
+    background: linear-gradient(to bottom right, #ffffff, #aa8040 80%);
 }
 
-/* Mejorar la apariencia de los inputs y selects */
-input.form-control, select.form-select {
-    margin-bottom: 5px;
+.table td .btn {
+    width: 100%;
+    font-size: 0.875rem; 
+    padding: 0.4rem 0.75rem;
+}
+.table-responsive {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
