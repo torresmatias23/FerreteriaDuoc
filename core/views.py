@@ -295,23 +295,7 @@ def usuarios(request):
 
     return render(request, "usuarios.html", {"usuarios": usuarios_completos})
 
-@require_POST
-def cambiar_rol_usuario(request):
-    uid = request.POST.get("uid")
-    nuevo_rol = request.POST.get("tipo_usuario")
 
-    if not uid or not nuevo_rol:
-        messages.error(request, "Faltan datos para actualizar el rol.")
-        return redirect("usuarios")
-
-    try:
-        user_ref = db.collection("usuarios").document(uid)
-        user_ref.update({"tipo_usuario": nuevo_rol})
-        messages.success(request, "Rol actualizado correctamente.")
-    except Exception as e:
-        messages.error(request, f"Error al actualizar el rol: {e}")
-
-    return redirect("usuarios")
 
 @require_POST
 def eliminar_usuario(request):
@@ -336,6 +320,7 @@ def editar_usuario(request):
     primer_apellido = request.POST.get("primer_apellido")
     segundo_apellido = request.POST.get("segundo_apellido")
     telefono = request.POST.get("telefono")
+    tipo_usuario = request.POST.get("tipo_usuario")  # <-- Añadido
 
     try:
         user_ref = db.collection("usuarios").document(uid)
@@ -345,6 +330,7 @@ def editar_usuario(request):
             "primer_apellido": primer_apellido,
             "segundo_apellido": segundo_apellido,
             "telefono": telefono,
+            "tipo_usuario": tipo_usuario,  # <-- Añadido
         })
         messages.success(request, "Usuario actualizado correctamente.")
     except Exception as e:

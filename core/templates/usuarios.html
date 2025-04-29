@@ -11,8 +11,7 @@
 <body>
     <div class="container py-4">
         <h2 class="mb-4 text-center">Administrar Usuarios <p>FERREMAX</p></h2>
-    
-        
+
         {% if messages %}
             <div>
                 {% for message in messages %}
@@ -64,16 +63,6 @@
                                 <button type="submit" class="btn btn-outline-success btn-sm w-100" title="Guardar cambios">
                                     <i class="fas fa-save me-1"></i> Guardar
                                 </button>
-                        </form>
-
-                        <!-- Cambiar rol -->
-                        <form method="POST" action="{% url 'cambiar_rol_usuario' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="uid" value="{{ usuario.uid }}">
-                            <input type="hidden" name="tipo_usuario" value="admin">
-                            <button type="submit" class="btn btn-outline-warning btn-sm w-100" title="Cambiar a Admin">
-                                <i class="fas fa-user-shield me-1"></i> Cambiar Rol
-                            </button>
                         </form>
 
                         <!-- Eliminar -->
