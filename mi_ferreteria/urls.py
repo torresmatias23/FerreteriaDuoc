@@ -51,4 +51,9 @@ urlpatterns = [
     path("usuarios/eliminar/", views.eliminar_usuario, name="eliminar_usuario"),
  
     path('perfil/', views.perfil, name='perfil'),
+    path('admin_productos/', views.admin_productos, name='admin_productos'),
+    path('admin_productos/editar/', views.editar_producto, name='editar_producto'),
+    path('admin_productos/eliminar/', views.eliminar_producto, name='eliminar_producto'),
+    
+    
 ]

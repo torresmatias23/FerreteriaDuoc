@@ -198,6 +198,7 @@ def dashboard_admin(request):
         users = users[:5]
     except Exception as e:
         print("Error al obtener usuarios:", e)
+    
 
     return render(request, "dashboard_admin.html", {"users": users})
 
@@ -468,3 +469,68 @@ def perfil(request):
         'nombre_usuario': nombre_usuario,
         'apellido_usuario': apellido_usuario
     })
+
+def admin_productos(request):
+    productos_completos = []
+
+    try:
+        docs = db.collection("productos").stream()
+        for doc in docs:
+            data = doc.to_dict()
+            productos_completos.append({
+                "uid": doc.id,
+                "nombre": data.get("nombre", ""),
+                "descripcion": data.get("descripcion", ""),
+                "categoria": data.get("categoria", ""),
+                "seccion": data.get("seccion", ""),
+                "precio": data.get("precio", ""),
+                "imagen": data.get("imagen", ""),
+                "stock": data.get("stock", ""),
+            })
+
+    except Exception as e:
+        print("Error al obtener productos:", e)
+
+    return render(request, 'admin_productos.html', {
+        'productos': productos_completos
+    })
+@require_http_methods(["POST"])
+def editar_producto(request):
+    uid = request.POST.get("uid")
+    categoria = request.POST.get("categoria")
+    descripcion = request.POST.get("descripcion")
+    imagen = request.POST.get("imagen")
+    nombre = request.POST.get("nombre")
+    precio = request.POST.get("precio")
+    seccion = request.POST.get("seccion")
+    stock = request.POST.get("stock")
+
+    try:
+        prod_ref = db.collection("productos").document(uid)
+        prod_ref.update({
+            "categoria": categoria,
+            "descripcion": descripcion,
+            "imagen": imagen,
+            "nombre": nombre,
+            "precio": precio,
+            "seccion": seccion,
+            "stock": stock,
+        })
+        messages.success(request, "Producto actualizado correctamente.")
+    except Exception as e:
+        messages.error(request, f"Error al editar producto: {e}")
+
+    return redirect("admin_productos")
+
+@require_POST
+def eliminar_producto(request):
+    uid = request.POST.get("uid")
+
+    try:
+        # Eliminar solo el documento del producto, no de usuarios
+        db.collection("productos").document(uid).delete()
+        messages.success(request, "Producto eliminado correctamente.")
+    except Exception as e:
+        messages.error(request, f"Error al eliminar el producto: {str(e)}")
+
+    return redirect("admin_productos")
