@@ -407,7 +407,7 @@
               <div class="col">
                 <div class="product-item">
                   <figure>
-                    <a href="index.html" title="Product Title">
+                    <a href="{% url 'detalle_producto' producto.id %}" title="{{ producto.nombre }}">
                       <img src="{{ producto.imagen }}" alt="Product Thumbnail" class="tab-image" style="max-width: 100%; height: auto;">
                     </a>
                   </figure>
@@ -853,7 +853,7 @@
                 <div class="col">
                   <div class="product-item">
                     <figure>
-                      <a href="index.html" title="Product Title">
+                      <a href="{% url 'detalle_producto' producto.id %}" title="{{ producto.nombre }}">
                         <img src="{{ producto.imagen }}" alt="Product Thumbnail" class="tab-image" style="max-width: 100%; height: auto;">
                       </a>
                     </figure>
