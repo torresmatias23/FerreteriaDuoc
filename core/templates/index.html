@@ -244,7 +244,10 @@
         <p class="fs-4 text-dark">Y recibe tu pedido en la puerta de tu hogar.</p>
         <div class="d-flex gap-3">
           <a href="#destacados" class="btn btn-warning text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Ir a comprar</a>
+          {% if not nombre_usuario %}
           <a href="login" class="btn btn-dark text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Iniciar sesión</a>
+        {% endif %}
+        
         </div>
         <div class="row my-5">
           <div class="col">
