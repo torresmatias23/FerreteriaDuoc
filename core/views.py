@@ -30,6 +30,7 @@ def home(request):
                 user_data = user_doc.to_dict()
                 nombre_usuario = user_data.get("primer_nombre", "")
                 apellido_usuario = user_data.get("primer_apellido", "").split(" ")[0]
+                tipo_usuario = user_data.get("tipo_usuario", "").lower()
 
         # Traer productos
         docs = db.collection("productos").stream()
@@ -230,6 +231,8 @@ def login_usuario(request):
                 # Redirigir según tipo de usuario
                 if tipo_usuario == "admin":
                     return redirect("dashboard_admin")  # usa el name del path
+                if tipo_usuario == "bodeguero":
+                    return redirect("ordenes_bodega")
                 else:
                     return redirect("home")
             else:

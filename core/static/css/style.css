@@ -171,6 +171,11 @@ h1,h2,h3,h4,h5,h6 {
   --bs-pagination-active-bg: var(--bs-primary);
   --bs-pagination-active-border-color: var(--bs-primary);
 }
+
+#wishlist-icono {
+  fill: black;
+  color: black;
+}
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
   --bs-gutter-x: 3rem;
 }

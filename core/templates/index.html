@@ -103,236 +103,134 @@
     </svg>
 
 
-    <!-- Menu lateral derecho (carrito)-->
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
-      <div class="offcanvas-header justify-content-center">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <div class="order-md-last">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-primary">Your cart</span>
-            <span class="badge bg-primary rounded-pill">3</span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Growers cider</h6>
-                <small class="text-body-secondary">Brief description</small>
-              </div>
-              <span class="text-body-secondary">$12</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Fresh grapes</h6>
-                <small class="text-body-secondary">Brief description</small>
-              </div>
-              <span class="text-body-secondary">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Heinz tomato ketchup</h6>
-                <small class="text-body-secondary">Brief description</small>
-              </div>
-              <span class="text-body-secondary">$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (USD)</span>
-              <strong>$20</strong>
-            </li>
-          </ul>
-  
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+<!-- MENU LATERAL DERECHO (CARRITO) -->
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
+  <div class="offcanvas-header justify-content-center">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <h5 class="mb-3">Your cart <span class="badge bg-primary rounded-pill">3</span></h5>
+    <ul class="list-group mb-3">
+      <li class="list-group-item d-flex justify-content-between lh-sm">
+        <div>
+          <h6 class="my-0">Growers cider</h6>
+          <small class="text-muted">Brief description</small>
         </div>
+        <span class="text-muted">$12</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between lh-sm">
+        <div>
+          <h6 class="my-0">Fresh grapes</h6>
+          <small class="text-muted">Brief description</small>
+        </div>
+        <span class="text-muted">$8</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between lh-sm">
+        <div>
+          <h6 class="my-0">Heinz tomato ketchup</h6>
+          <small class="text-muted">Brief description</small>
+        </div>
+        <span class="text-muted">$5</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Total (USD)</span>
+        <strong>$25</strong>
+      </li>
+    </ul>
+    <button class="w-100 btn btn-primary" type="button">Continue to checkout</button>
+  </div>
+</div>
+
+<!-- MENU LATERAL IZQUIERDO (CATEGORÍAS) -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
+  <div class="offcanvas-header justify-content-between">
+    <h5 class="fw-bold text-uppercase mb-0">Categorías</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="navbar-nav list-unstyled">
+      {% for categoria in categorias %}
+      <li class="nav-item border-bottom">
+        <a href="{{ categoria.url }}" class="nav-link d-flex align-items-center py-2">
+          <svg width="24" height="24"><use xlink:href="#{{ categoria.icon }}"></use></svg>
+          <span class="ms-2">{{ categoria.nombre }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<!-- HEADER PRINCIPAL -->
+<header class="py-4" style="background-color: #aa8040;">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <!-- LOGO + MENÚ MÓVIL -->
+      <div class="col-6 col-md-4 col-lg-2 d-flex align-items-center">
+        <a href="{% url 'home' %}" class="d-block">
+          <img src="{% static 'images/logofinal.png' %}" alt="Logo" class="img-fluid" style="max-height: 80px;">
+        </a>
+        <button class="btn d-md-none ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <svg width="30" height="30"><use xlink:href="#menu"></use></svg>
+        </button>
       </div>
-    </div>
-    
-
-    <!-- Menu lateral izquierdo -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
-
-      <div class="offcanvas-header justify-content-between">
-        <h4 class="fw-normal text-uppercase fs-6">Menu</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <!-- BÚSQUEDA -->
+      <div class="col-12 col-md-8 col-lg-6 mt-3 mt-md-0">
+        <form action="{% url 'home' %}" method="get" class="d-flex">
+          <select class="form-select me-2 d-none d-md-block" name="categoria" style="max-width: 150px;">
+            <option value="">Todas</option>
+            {% for cat in categorias %}<option value="{{ cat.id }}">{{ cat.nombre }}</option>{% endfor %}
+          </select>
+          <input type="text" name="q" class="form-control me-2" placeholder="Busca en +25.000 productos">
+          <button class="btn btn-dark" type="submit">
+            <svg width="20" height="20"><use xlink:href="#search"></use></svg>
+          </button>
+        </form>
       </div>
+      <!-- ENLACES USUARIO Y CARRITO -->
+      <div class="col-6 col-md-12 col-lg-4 d-flex justify-content-end align-items-center mt-3 mt-lg-0">
+        <ul class="list-unstyled d-flex mb-0 align-items-center">
+          <li class="me-3">
+            <a href="{% url 'home' %}" class="nav-link text-dark p-0">Inicio</a>
+          </li>
+          <li class="dropdown me-3 d-none d-lg-block">
+            <a class="nav-link text-dark dropdown-toggle p-0" href="#" id="pagesDropdown" data-bs-toggle="dropdown" aria-expanded="false">Páginas</a>
+            <ul class="dropdown-menu" aria-labelledby="pagesDropdown">
+              <li><a class="dropdown-item" hre  f="{% url 'perfil' %}">Perfil</a></li>
+              <li><a class="dropdown-item" href="{% url 'productos' %}">Productos</a></li>
+              <li><a class="dropdown-item" href="{% url 'contacto' %}">Contacto</a></li>
+            </ul>
+          </li>
+          {% if nombre_usuario %}
+          <li class="me-3 text-dark">
+            <span class="fw-bold">Hola, {{ nombre_usuario }}</span>
+          </li>
+          <li class="me-3">
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button class="btn p-0" style="color: black;" type="submit"><i class="fas fa-sign-out-alt"></i></button>
+            </form>
+          </li>
+          {% else %}
+          <li class="me-3 text-dark">
+            <a href="{% url 'login' %}"><svg width="24" height="24"><use xlink:href="#user"></use></svg></a>
+          </li>
+          {% endif %}
+          <li class="me-3" style="color: black;"> 
+            <a href="#" style="color: black;"><svg id="wishlist-icono" style="fill: black;" width="24" height="24"><use xlink:href="#wishlist"></use></svg></a>
+          </li>
 
-      <div class="offcanvas-body">
-    
-        <ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-          <li class="nav-item border-dashed active">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#martillo"></use></svg>
-              <span>Herramientas</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#clavo"></use></svg>
-              <span>Fijaciones</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#casco"></use></svg>
-              <span>Seguridad</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#lampara"></use></svg>
-              <span>Accesorios de interior</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#planta"></use></svg>
-              <span>Accesorios de exterior</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#ladrillo"></use></svg>
-              <span>Materiales para la construcción</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#madera"></use></svg>
-              <span>Maderas y tableros</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#gas"></use></svg>
-              <span>Gasfitería</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#plomeria"></use></svg>
-              <span>Plomería</span>
-            </a>
-          </li>
-          <li class="nav-item border-dashed">
-            <a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2">
-              <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#estufa"></use></svg>
-              <span>Calefacción</span>
-            </a>
+          <li>
+            <button class="btn p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+              <svg width="24" height="24"><use xlink:href="#shopping-bag"></use></svg>
+            </button>
           </li>
         </ul>
-      
       </div>
-
     </div>
-
-
-  <!-- MENU LATERAL DE CATEGORIAS -->
-  <header style="padding: 2rem 0; font-size: 1.2rem; background-color: #aa8040;">
-    <div class="container-fluid">
-        <div class="row border-bottom align-items-center justify-content-center" style="min-height: 120px;">
-            
-            <div class="col-sm-4 col-lg-2 text-center d-flex gap-3 justify-content-center">
-                <div class="d-flex align-items-center my-3">
-                    <a href="index.html">
-                        <img src="{% static 'images/logofinal.png' %}" alt="logo" class="img-fluid" style="max-height: 120px; width: auto;">
-                    </a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                    aria-controls="offcanvasNavbar">
-                    <svg width="30" height="30" viewBox="0 0 24 24"><use xlink:href="#menu"></use></svg>
-                </button>
-            </div>
-
-            <div class="col-sm-6 col-lg-4">
-                <div class="search-bar row bg-light p-3 rounded-4">
-                    <div class="col-md-4 d-none d-md-block">
-                        <select class="form-select border-0 bg-transparent">
-                            <option>Categorías</option>
-                            <option>Hogar</option>
-                            <option>Jardin</option>
-                            <option>Plomería</option>
-                            <option>Gasfitería</option>
-                            <option>Herramientas</option>
-                            <option>Maquinaria</option>
-                            <option>Seguridad</option>
-                        </select>
-                    </div>
-                    <div class="col-11 col-md-7">
-                        <form id="search-form" class="text-center" action="{% url 'home' %}" method="post">
-                            <input type="text" class="form-control border-0 bg-transparent" placeholder="Busca en más de 20,000 productos">
-                        </form>
-                    </div>
-                    <div class="col-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"/></svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <ul class="navbar-nav list-unstyled d-flex flex-row gap-4 justify-content-center align-items-center mb-0 fw-bold text-uppercase text-dark">
-                    <li class="nav-item active">
-                        <a href="{% url 'home' %}" class="nav-link" style="padding: 0.75rem 1.5rem;">Inicio</a>
-                    </li>
-
-<!-- PÁGINASSSSSSSSSSSS -->                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0.75rem 1.5rem;">Páginas</a>
-                        <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
-                            <li><a href="index.html" class="dropdown-item">Perfil</a></li>
-                            <li><a href="index.html" class="dropdown-item">Productos</a></li>
-                            <li><a href="{% url 'productos' %}" class="dropdown-item">Ropa y Accesorios</a></li>
-                            <li><a href="index.html" class="dropdown-item">Hot Sale</a></li>
-                            <li><a href="{% url 'contacto' %}" class="dropdown-item">Contacto</a></li>
-                            <li><a href="index.html" class="dropdown-item">Opiniones y comentarios</a></li>
-                        </ul>
-                    </li>
-               
-<!-- PERFIL -->
-                    {% if nombre_usuario %}
-                      <li class="nav-item">
-                        <a href="{% url 'perfil' %}" class="nav-link" role="button" id="perfil" aria-expanded="false" style="padding: 0.75rem 1.5rem;">Perfil</a>
-                      </li>
-                      </ul>
-                      </div>
-            <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center">
-              <ul class="d-flex list-unstyled m-0">
-                  
-                  <li>
-                    <span style="color: #000000; font-weight: bold; display: flex; padding-top: 10px; font-size: 11px; white-space: nowrap;">
-                      Hola, {{ nombre_usuario }} {{ apellido_usuario }}!
-                    </span>
-                  </li>
-                      <li>
-                          <!-- Botón de logout -->
-                          <form action="{% url 'logout' %}" method="post">
-                              {% csrf_token %}
-                              <button style="background: transparent; border: none; cursor: pointer;" (click)="logout()">
-                                <i class="fas fa-sign-out-alt" style="font-size: 22px; color: #000;"></i>
-                              </button>
-                          </form>
-                      </li>
-                  {% else %}
-                      <li>
-                          <a href="{% url 'login' %}" class="p-2 mx-2" style="color: rgb(0, 0, 0);">
-                              <svg width="30" height="30" ><use xlink:href="#user"></use></svg>
-                          </a>
-                      </li>
-                  {% endif %}
-                  <li>
-                      <a href="#" class="p-2 mx-2" style="color: rgb(0, 0, 0);">
-                          <svg width="30" height="30"><use xlink:href="#wishlist"></use></svg>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#" style="color: rgb(0, 0, 0);" class="p-2 mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                          <svg width="30" height="30"><use xlink:href="#shopping-bag"></use></svg>
-                      </a>
-                  </li>
-              </ul>
-            </div>
-            
-    </div>
+  </div>
 </header>
+
 
 
 <!-- TEXTO INICIAL -->
