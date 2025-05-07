@@ -47,6 +47,11 @@ body {
   
   --bs-border-color: #F7F7F7;
 }
+#map {
+  height: 300px;
+  width: 100%;
+  border-radius: 10px;
+}
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: var(--bs-primary);
