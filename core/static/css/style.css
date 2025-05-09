@@ -763,3 +763,9 @@ a.btn-link.text-light:after {
 #productos-destacados .btn-add:hover {
   background-color: #e66b00;
 }
+
+/*swiper de productos mejor valorados*/
+.swiper-button-prev,
+.swiper-button-next {
+  color: #ce7829;
+}
