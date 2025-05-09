@@ -332,60 +332,97 @@
             
     </div>
 </header>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg rounded-4" style="border: none; background-color: #f9f9f9;">
+        <div class="card-body">
+          <!-- Título del perfil con color y estilo moderno -->
+          <h4 class="card-title mb-4" style="color: #f7a422; font-weight: 600; font-size: 1.75rem;">
+            <i class="bi bi-person-circle me-2"></i>Perfil de Usuario
+          </h4>
 
+          <!-- Lista de información del usuario con diseño más limpio -->
+          <ul class="list-group list-group-flush" style="border-radius: 8px; background-color: #ffffff;">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Nombre:</strong> {{ nombre_usuario }}
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Apellido Paterno:</strong> {{ apellido_usuario }}
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Apellido Materno:</strong> {{ segundo_apellido }}
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Teléfono:</strong> {{ telefono }}
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Email:</strong> {{ email }}
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Tipo de Usuario:</strong> {{ tipo_usuario }}
+            </li>
+          </ul>
 
-  <div class="container mt-5">
-    <div class="row">
-      <!-- Columna izquierda: datos actuales -->
-      <div class="col-md-6">
-        <h4>Información del Usuario</h4>
-        <div class="card shadow p-4 rounded-3">
-          <p><strong>Nombre:</strong> {{ nombre_usuario }}</p>
-          <p><strong>Apellido Paterno:</strong> {{ apellido_usuario }}</p>
-          <p><strong>Apellido Materno:</strong> {{ segundo_apellido }}</p>
-          <p><strong>Teléfono:</strong> {{ telefono }}</p>
-          <p><strong>Tipo de Usuario:</strong> {{ tipo_usuario }}</p>
-          <p><strong>Email:</strong> {{ email }}</p>
-  
-          <button class="btn btn-primary mt-3" onclick="mostrarFormulario()">Editar Información</button>
+          <!-- Botón para editar con más estilo -->
+          <div class="text-end mt-4">
+            <button class="btn" style="background-color: #f7a422; color: white; border-radius: 25px; padding: 10px 20px; font-weight: 500;" data-bs-toggle="modal" data-bs-target="#editarModal">
+              <i class="bi bi-pencil-square me-1"></i> Editar Información
+            </button>
+          </div>
         </div>
       </div>
-  
-      <!-- Columna derecha: formulario editable -->
-      <div class="col-md-6 card shadow p-4 rounded-3" id="formulario-edicion" style="display: none;">
-        <h4>Editar Información</h4>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal de Edición -->
+  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content rounded-4">
+        <div class="modal-header" style="background-color: #f7a422; color: white;">
+          <h5 class="modal-title" id="editarModalLabel"><i class="bi bi-pencil me-2"></i>Editar Perfil</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>        
         <form method="POST">
           {% csrf_token %}
-          <div class="form-group mb-2">
-            <label>Primer Nombre</label>
-            <input type="text" name="primer_nombre" value="{{ nombre_usuario }}" class="form-control">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Primer Nombre</label>
+                <input type="text" name="primer_nombre" value="{{ nombre_usuario }}" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Primer Apellido</label>
+                <input type="text" name="primer_apellido" value="{{ apellido_usuario }}" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Segundo Apellido</label>
+                <input type="text" name="segundo_apellido" value="{{ segundo_apellido }}" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Teléfono</label>
+                <input type="text" name="telefono" value="{{ telefono }}" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" value="{{ email }}" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Tipo de Usuario</label>
+                <input type="text" name="tipo_usuario" value="{{ tipo_usuario }}" class="form-control" disabled>
+              </div>
+            </div>
           </div>
-          <div class="form-group mb-2">
-            <label>Primer Apellido</label>
-            <input type="text" name="primer_apellido" value="{{ apellido_usuario }}" class="form-control">
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
           </div>
-          <div class="form-group mb-2">
-            <label>Segundo Apellido</label>
-            <input type="text" name="segundo_apellido" value="{{ segundo_apellido }}" class="form-control">
-          </div>
-          <div class="form-group mb-2">
-            <label>Teléfono</label>
-            <input type="text" name="telefono" value="{{ telefono }}" class="form-control">
-          </div>
-          <div class="form-group mb-2">
-            <label>Email</label>
-            <input type="email" name="email" value="{{ email }}" class="form-control">
-          </div>
-          <div class="form-group mb-2">
-            <label>Tipo de Usuario</label>
-            <input type="text" name="tipo_usuario" value="{{ tipo_usuario }}" class="form-control" disabled>
-          </div>
-  
-          <button type="submit" class="btn btn-primary mt-2">Guardar Cambios</button>
         </form>
       </div>
     </div>
   </div>
+
   
   <script>
     function mostrarFormulario() {
@@ -451,71 +488,7 @@
         </div>
       </div>
     </section>
-    
-
-
-    <section class="py-5">
-      <div class="container-lg">
-        <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-5">
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#package"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Delivery gratis</h5>
-                <p class="card-text">Recibe tu pedido en la puerta de tu hogar sin costo adicional.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#secure"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Pago 100% seguro</h5>
-                <p class="card-text">Trabajamos con socios de pago conocidos a nivel nacional.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#quality"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Garantía de calidad</h5>
-                <p class="card-text">¿Tuviste un problema con tu compra? No te preocupes, te podemos ayudar.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#savings"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Productos originales</h5>
-                <p class="card-text">Encuentra las mejores marcas del mercado durante tu compra.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#offers"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Ofertas diarias</h5>
-                <p class="card-text">Todos los dias una nueva oferta, ¡Aprovéchalas todas!.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+  
     <footer class="py-5">
       <div class="container-lg">
         <div class="row">
