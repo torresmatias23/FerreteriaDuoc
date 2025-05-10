@@ -534,3 +534,60 @@ def eliminar_producto(request):
         messages.error(request, f"Error al eliminar el producto: {str(e)}")
 
     return redirect("admin_productos")
+
+from django.views.decorators.http import require_POST
+
+@require_POST
+def agregar_al_carrito(request):
+    uid = request.session.get("firebase_uid")
+    producto_id = request.POST.get("producto_id")
+    cantidad = int(request.POST.get("cantidad", 1))
+
+    if not uid or not producto_id:
+        return JsonResponse({"error": "Datos faltantes"}, status=400)
+
+    try:
+        producto_ref = db.collection("productos").document(producto_id).get()
+        if not producto_ref.exists:
+            return JsonResponse({"error": "Producto no encontrado"}, status=404)
+
+        producto_data = producto_ref.to_dict()
+
+        # Agregar o actualizar producto en el carrito
+        carrito_ref = db.collection("carritos").document(uid).collection("productos").document(producto_id)
+        carrito_ref.set({
+            "producto_id": producto_id,
+            "nombre": producto_data["nombre"],
+            "precio": producto_data["precio"],
+            "imagen": producto_data["imagen"],
+            "cantidad": cantidad,
+        }, merge=True)
+
+        # Responder con los datos del carrito actualizado
+        productos_carrito = []
+        docs = db.collection("carritos").document(uid).collection("productos").stream()
+        for doc in docs:
+            producto = doc.to_dict()
+            productos_carrito.append(producto)
+
+        return JsonResponse({"mensaje": "Producto añadido al carrito", "carrito": productos_carrito})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+    
+def ver_carrito(request):
+    uid = request.session.get("firebase_uid")
+    productos_carrito = []
+
+    if not uid:
+        return redirect("login")
+
+    try:
+        docs = db.collection("carritos").document(uid).collection("productos").stream()
+        for doc in docs:
+            producto = doc.to_dict()
+            productos_carrito.append(producto)
+    except Exception as e:
+        print("Error al obtener el carrito:", e)
+
+    return render(request, "carrito.html", {"carrito": productos_carrito})
