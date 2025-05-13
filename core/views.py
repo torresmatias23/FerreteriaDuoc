@@ -222,6 +222,9 @@ def login_usuario(request):
             request.session["firebase_uid"] = uid
             request.session["firebase_email"] = email  # Guardamos el email de Firebase en la sesión
 
+            # ✅ Transferir carrito anónimo si existe
+            transferir_carrito_anonimo_a_firestore(request, email)
+
             # Obtener el tipo_usuario desde Firestore
             doc_ref = db.collection("usuarios").document(uid)
             doc = doc_ref.get()
@@ -236,8 +239,8 @@ def login_usuario(request):
 
                 # Redirigir según tipo de usuario
                 if tipo_usuario == "admin":
-                    return redirect("dashboard_admin")  # usa el name del path
-                if tipo_usuario == "bodeguero":
+                    return redirect("dashboard_admin")
+                elif tipo_usuario == "bodeguero":
                     return redirect("ordenes_bodega")
                 else:
                     return redirect("home")
@@ -547,68 +550,98 @@ def agregar_carrito(request):
         nombre = data.get('nombre')
         precio = data.get('precio')
         cantidad = data.get('cantidad')
-        
-        usuario_email = request.session.get('firebase_email') or request.user.email
-        
-        if not usuario_email:
-            return JsonResponse({'success': False, 'error': 'Usuario no autenticado'}, status=403)
 
-        # Acceder a Firestore y verificar si ya existe un carrito
+        usuario_email = request.session.get('firebase_email') or (request.user.email if request.user.is_authenticated else None)
+
+        # 🔹 Si NO está autenticado, guardar el carrito en la sesión
+        if not usuario_email:
+            carrito = request.session.get('carrito_anonimo', [])
+            encontrado = False
+            for item in carrito:
+                if item['nombre'] == nombre:
+                    item['cantidad'] += cantidad
+                    encontrado = True
+                    break
+            if not encontrado:
+                carrito.append({'nombre': nombre, 'precio': precio, 'cantidad': cantidad})
+            request.session['carrito_anonimo'] = carrito
+            request.session.modified = True
+            return JsonResponse({'success': True, 'carrito': carrito})
+
+        # 🔹 Si está autenticado, guardar el carrito en Firestore
         carrito_ref = db.collection('carritos').document(usuario_email)
         carrito_doc = carrito_ref.get()
+        carrito = carrito_doc.to_dict().get('items', []) if carrito_doc.exists else []
 
-        carrito = []
-        if carrito_doc.exists:
-            carrito = carrito_doc.to_dict().get('items', [])
-
-        # Verificar si el producto ya está en el carrito
         encontrado = False
         for item in carrito:
             if item['nombre'] == nombre:
                 item['cantidad'] += cantidad
                 encontrado = True
                 break
-
         if not encontrado:
             carrito.append({'nombre': nombre, 'precio': precio, 'cantidad': cantidad})
 
-        # Guardar los cambios en Firestore
         carrito_ref.set({'items': carrito})
-        
-        print(f"Carrito actualizado para {usuario_email}: {carrito}")
-        
         return JsonResponse({'success': True, 'carrito': carrito})
-    
+
     return JsonResponse({'success': False}, status=400)
 
 
-def obtener_carrito(request):
-    usuario_email = request.session.get('firebase_email') or request.user.email
-    
-    if not usuario_email:
-        return JsonResponse({'success': False, 'error': 'Usuario no autenticado'}, status=403)
 
+
+def obtener_carrito(request):
+    usuario_email = request.session.get('firebase_email') or (request.user.email if request.user.is_authenticated else None)
+
+    # 🔹 Si no está autenticado, obtener carrito de la sesión
+    if not usuario_email:
+        carrito = request.session.get('carrito_anonimo', [])
+        return JsonResponse({'carrito': carrito})
+
+    # 🔹 Si está autenticado, obtener carrito de Firestore
     carrito_ref = db.collection('carritos').document(usuario_email)
     carrito_doc = carrito_ref.get()
-
-    carrito = []
-    if carrito_doc.exists:
-        carrito = carrito_doc.to_dict().get('items', [])
-
+    carrito = carrito_doc.to_dict().get('items', []) if carrito_doc.exists else []
     return JsonResponse({'carrito': carrito})
 
 
+
+def transferir_carrito_anonimo_a_firestore(request, usuario_email):
+    carrito_anonimo = request.session.get('carrito_anonimo', [])
+    if not carrito_anonimo:
+        return
+
+    carrito_ref = db.collection('carritos').document(usuario_email)
+    carrito_doc = carrito_ref.get()
+    carrito = carrito_doc.to_dict().get('items', []) if carrito_doc.exists else []
+
+    for nuevo in carrito_anonimo:
+        encontrado = False
+        for item in carrito:
+            if item['nombre'] == nuevo['nombre']:
+                item['cantidad'] += nuevo['cantidad']
+                encontrado = True
+                break
+        if not encontrado:
+            carrito.append(nuevo)
+
+    carrito_ref.set({'items': carrito})
+    del request.session['carrito_anonimo']
+    request.session.modified = True
+
+
+
 def ver_carrito(request):
-    # Obtener el email desde sesión (Firebase) o desde usuario autenticado (Django)
-    usuario_email = request.session.get('firebase_email') or getattr(request.user, 'email', None)
+    usuario_email = request.session.get('firebase_email')
+    if not usuario_email and request.user.is_authenticated:
+        usuario_email = request.user.email
 
     if not usuario_email:
         print("⚠️ Usuario no autenticado: no se encontró email.")
-        return redirect('login')  # Asegúrate de tener esta ruta definida
-
+        return redirect('login')
+    
     print(f"🔍 Buscando carrito para: {usuario_email}")
 
-    # Obtener el carrito desde Firestore
     carrito_ref = db.collection('carritos').document(usuario_email)
     carrito_doc = carrito_ref.get()
 
@@ -618,41 +651,37 @@ def ver_carrito(request):
     if carrito_doc.exists:
         carrito = carrito_doc.to_dict().get('items', [])
 
-        # Calcular el total por producto
         for item in carrito:
             item['total_producto'] = round(item['precio'] * item['cantidad'], 2)
 
-        # Calcular el total
         total = sum(item['total_producto'] for item in carrito)
 
-    # Pasar el carrito y total al template
     return render(request, 'carrito.html', {
         'carrito': carrito,
         'total': total
     })
 
+
 def eliminar_producto_carrito(request, producto_nombre):
     if request.method == 'DELETE':
-        usuario_email = request.session.get('firebase_email') or request.user.email
-        
+        usuario_email = request.session.get('firebase_email')
+        if not usuario_email and request.user.is_authenticated:
+            usuario_email = request.user.email
+
         if not usuario_email:
             return JsonResponse({'success': False, 'error': 'Usuario no autenticado'}, status=403)
 
-        # Acceder al carrito del usuario en Firestore
         carrito_ref = db.collection('carritos').document(usuario_email)
         carrito_doc = carrito_ref.get()
 
         if carrito_doc.exists:
             carrito = carrito_doc.to_dict().get('items', [])
-            
-            # Buscar el producto en el carrito y eliminarlo
             carrito = [item for item in carrito if item['nombre'] != producto_nombre]
 
-            # Guardar los cambios en Firestore
             carrito_ref.set({'items': carrito})
 
             return JsonResponse({'success': True, 'carrito': carrito})
 
         return JsonResponse({'success': False, 'error': 'Carrito no encontrado'}, status=404)
-    
+
     return JsonResponse({'success': False}, status=400)
