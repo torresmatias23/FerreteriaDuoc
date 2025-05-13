@@ -36,10 +36,13 @@ urlpatterns = [
     path('nosotros/', views.nosotros, name='nosotros'),
     
     # Carrito y pedidos
-    path('carrito/', views.carrito, name='carrito'),
     path('checkout/', views.checkout, name='checkout'),
     path('pagos/', views.pagos, name='pagos'),
     path('pedidos/', views.pedidos, name='pedidos'),
+    path('agregar-carrito/', views.agregar_carrito, name='agregar_carrito'),
+    path('obtener-carrito/', views.obtener_carrito, name='obtener_carrito'),
+    path('carrito/', views.ver_carrito, name='ver_carrito'),
+     path('eliminar-carrito/<str:producto_nombre>/', views.eliminar_producto_carrito, name='eliminar_producto_carrito'),
     
     # Admin y gestión
     path('dashboard_admin/', views.dashboard_admin, name='dashboard_admin'),

@@ -52,6 +52,32 @@ body {
   width: 100%;
   border-radius: 10px;
 }
+/* Estilo para el carrito vacío */
+#carrito-vacio {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+#carrito-vacio i {
+  margin-bottom: 10px;
+  font-size: 3rem;
+  color: #6c757d;
+}
+
+#carrito-lista {
+  list-style: none;
+  padding: 0;
+}
+
+#total-carrito {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #007bff;
+}
+
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: var(--bs-primary);

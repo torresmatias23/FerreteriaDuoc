@@ -80,11 +80,14 @@ def productos(request):
             data = doc.to_dict()
             data["id"] = doc.id
             categorias.add(data["categoria"])
+
+            # Filtramos solo los productos que pertenecen a la categoría seleccionada
             if filtro_categoria == "" or data["categoria"] == filtro_categoria:
                 productos.append(data)
     except Exception as e:
         print("Error:", e)
 
+    # Aseguramos de pasar los productos con su 'seccion' incluida
     return render(request, "productos.html", {
         "productos": productos,
         "categorias": sorted(categorias),
@@ -207,15 +210,17 @@ def dashboard_admin(request):
 from django.contrib import messages
 from firebase_admin import auth, _auth_utils  
 
-def login_usuario(request): 
+def login_usuario(request):
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
         try:
+            # Intentar obtener el usuario desde Firebase
             firebase_user = auth.get_user_by_email(email)
 
             uid = firebase_user.uid
             request.session["firebase_uid"] = uid
+            request.session["firebase_email"] = email  # Guardamos el email de Firebase en la sesión
 
             # Obtener el tipo_usuario desde Firestore
             doc_ref = db.collection("usuarios").document(uid)
@@ -225,7 +230,7 @@ def login_usuario(request):
                 datos_usuario = doc.to_dict()
                 tipo_usuario = datos_usuario.get("tipo_usuario")
 
-                # Crear el usuario en Django
+                # Crear o obtener el usuario en Django
                 user, created = User.objects.get_or_create(username=uid, email=email)
                 django_login(request, user)
 
@@ -535,3 +540,119 @@ def eliminar_producto(request):
 
     return redirect("admin_productos")
 
+
+def agregar_carrito(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        nombre = data.get('nombre')
+        precio = data.get('precio')
+        cantidad = data.get('cantidad')
+        
+        usuario_email = request.session.get('firebase_email') or request.user.email
+        
+        if not usuario_email:
+            return JsonResponse({'success': False, 'error': 'Usuario no autenticado'}, status=403)
+
+        # Acceder a Firestore y verificar si ya existe un carrito
+        carrito_ref = db.collection('carritos').document(usuario_email)
+        carrito_doc = carrito_ref.get()
+
+        carrito = []
+        if carrito_doc.exists:
+            carrito = carrito_doc.to_dict().get('items', [])
+
+        # Verificar si el producto ya está en el carrito
+        encontrado = False
+        for item in carrito:
+            if item['nombre'] == nombre:
+                item['cantidad'] += cantidad
+                encontrado = True
+                break
+
+        if not encontrado:
+            carrito.append({'nombre': nombre, 'precio': precio, 'cantidad': cantidad})
+
+        # Guardar los cambios en Firestore
+        carrito_ref.set({'items': carrito})
+        
+        print(f"Carrito actualizado para {usuario_email}: {carrito}")
+        
+        return JsonResponse({'success': True, 'carrito': carrito})
+    
+    return JsonResponse({'success': False}, status=400)
+
+
+def obtener_carrito(request):
+    usuario_email = request.session.get('firebase_email') or request.user.email
+    
+    if not usuario_email:
+        return JsonResponse({'success': False, 'error': 'Usuario no autenticado'}, status=403)
+
+    carrito_ref = db.collection('carritos').document(usuario_email)
+    carrito_doc = carrito_ref.get()
+
+    carrito = []
+    if carrito_doc.exists:
+        carrito = carrito_doc.to_dict().get('items', [])
+
+    return JsonResponse({'carrito': carrito})
+
+
+def ver_carrito(request):
+    # Obtener el email desde sesión (Firebase) o desde usuario autenticado (Django)
+    usuario_email = request.session.get('firebase_email') or getattr(request.user, 'email', None)
+
+    if not usuario_email:
+        print("⚠️ Usuario no autenticado: no se encontró email.")
+        return redirect('login')  # Asegúrate de tener esta ruta definida
+
+    print(f"🔍 Buscando carrito para: {usuario_email}")
+
+    # Obtener el carrito desde Firestore
+    carrito_ref = db.collection('carritos').document(usuario_email)
+    carrito_doc = carrito_ref.get()
+
+    carrito = []
+    total = 0
+
+    if carrito_doc.exists:
+        carrito = carrito_doc.to_dict().get('items', [])
+
+        # Calcular el total por producto
+        for item in carrito:
+            item['total_producto'] = round(item['precio'] * item['cantidad'], 2)
+
+        # Calcular el total
+        total = sum(item['total_producto'] for item in carrito)
+
+    # Pasar el carrito y total al template
+    return render(request, 'carrito.html', {
+        'carrito': carrito,
+        'total': total
+    })
+
+def eliminar_producto_carrito(request, producto_nombre):
+    if request.method == 'DELETE':
+        usuario_email = request.session.get('firebase_email') or request.user.email
+        
+        if not usuario_email:
+            return JsonResponse({'success': False, 'error': 'Usuario no autenticado'}, status=403)
+
+        # Acceder al carrito del usuario en Firestore
+        carrito_ref = db.collection('carritos').document(usuario_email)
+        carrito_doc = carrito_ref.get()
+
+        if carrito_doc.exists:
+            carrito = carrito_doc.to_dict().get('items', [])
+            
+            # Buscar el producto en el carrito y eliminarlo
+            carrito = [item for item in carrito if item['nombre'] != producto_nombre]
+
+            # Guardar los cambios en Firestore
+            carrito_ref.set({'items': carrito})
+
+            return JsonResponse({'success': True, 'carrito': carrito})
+
+        return JsonResponse({'success': False, 'error': 'Carrito no encontrado'}, status=404)
+    
+    return JsonResponse({'success': False}, status=400)

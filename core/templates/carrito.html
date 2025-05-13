@@ -1,1 +1,53 @@
-  <!-- Para que los clientes puedan ver y gestionar su carrito de compras. -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito de Compras</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- CSS personalizado -->
+  <link href="{% static 'css/carrito.css' %}" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center">Tu carrito de compras</h2>
+    
+    {% if carrito %}
+      <div class="row">
+        <div class="col-12">
+          <ul class="list-group mb-3">
+            {% for item in carrito %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <img src="{{ item.imagen }}" alt="{{ item.nombre }}" class="img-thumbnail me-3" width="50">
+                  <div>
+                    <h6 class="my-0">{{ item.nombre }}</h6>
+                    <small class="text-muted">{{ item.cantidad }} x ${{ item.precio }}</small>
+                  </div>
+                </div>
+                <span class="text-muted">$ {{ item.precio|floatformat:2 }}</span>
+              </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between">
+              <strong>Total:</strong>
+              <strong>${{ total|floatformat:2 }}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a href="#" class="btn btn-success w-50">Proceder al pago</a>
+      </div>
+    {% else %}
+      <p class="text-muted text-center">Tu carrito está vacío.</p>
+    {% endif %}
+  </div>
+
+  <!-- Bootstrap JS (opcional, si usas componentes interactivos) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

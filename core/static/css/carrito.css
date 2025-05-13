@@ -1,0 +1,56 @@
+/* carrito.css */
+
+/* Asegúrate de que el contenedor principal tenga suficiente espacio */
+.container {
+  max-width: 960px;
+  margin: auto;
+}
+
+/* Estilo para la lista de productos en el carrito */
+.list-group-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Estilo para los títulos y detalles de los productos */
+.list-group-item h6 {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* Fondo suave para cada elemento de la lista */
+.list-group-item:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Estilo para el precio total */
+.list-group-item strong {
+  font-size: 1.2rem;
+}
+
+/* Botón de proceder al pago */
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Imagen del producto */
+.img-thumbnail {
+  max-width: 50px;
+  object-fit: cover;
+}
+
+/* Centrar texto en los casos de carrito vacío */
+.text-center {
+  text-align: center;
+}

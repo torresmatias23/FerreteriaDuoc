@@ -18,6 +18,8 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Cargar Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -108,27 +110,51 @@
 <!-- MENU LATERAL DERECHO (CARRITO) -->
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
   <div class="offcanvas-header justify-content-center">
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
   </div>
+
   <div class="offcanvas-body">
+    <!-- Título del carrito con cantidad de productos -->
     <h5 class="mb-3">
-      Your cart <span id="cantidad-productos" class="badge bg-primary rounded-pill">0</span>
+      Tu carrito 
+      <span id="cantidad-productos" class="badge bg-primary rounded-pill">0</span>
     </h5>
 
-    <ul class="list-group mb-3">
-      <!-- Los productos agregados dinámicamente se mostrarán aquí -->
+    <!-- Lista de productos en el carrito -->
+    <ul class="list-group mb-3" id="carrito-lista">
+      <!-- Mensaje de carrito vacío -->
+      <li class="list-group-item text-center" id="carrito-vacio" style="display: none;">
+        <i class="bi bi-cart-x" style="font-size: 3rem; color: #6c757d;"></i><br>
+        Carrito vacío
+      </li>
+
+      <!-- Ejemplo de producto en el carrito -->
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <h6 class="my-0">Nombre del producto</h6>
+          <small class="text-muted">Precio: $3.000</small>
+        </div>
+        <button class="btn btn-sm btn-outline-danger eliminar-producto" title="Eliminar">
+          <i class="bi bi-trash"></i>
+        </button>
+      </li>
     </ul>
 
-    <li class="list-group-item d-flex justify-content-between">
-      <span>Total (USD)</span>
+    <!-- Total del carrito -->
+    <div class="list-group-item d-flex justify-content-between">
+      <span>Total (CLP)</span>
       <strong id="total-carrito">$0</strong>
-    </li>
+    </div>
 
-    <button class="w-100 btn btn-primary mt-3" type="button">
+    <!-- Botón para continuar con la compra -->
+    <a href="{% url 'ver_carrito' %}" class="w-100 btn btn-primary mt-3">
       Continuar con la compra
-    </button>
+    </a>
   </div>
 </div>
+
+
+
 
 <!-- MENU LATERAL IZQUIERDO (CATEGORÍAS) -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
@@ -370,7 +396,7 @@
       </div>
     </section>
 
- <!-- DESTACADOS -->
+<!-- Productos Destacados -->
 <section id="destacados" class="pb-5">
   <div class="container-lg">
     <div class="row">
@@ -396,6 +422,7 @@
                     <h3 class="fs-6 fw-normal">{{ producto.nombre }}</h3>
                     <div>
                       <span class="rating">
+                        <!-- Asumiendo que la calificación está definida, agrega estrellas aquí -->
                         <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
                         <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
                         <svg width="18" height="18" class="text-warning"><use xlink:href="#star-full"></use></svg>
@@ -414,7 +441,7 @@
                         </div>
                         <div class="col-7">
                           <a href="#" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart">
-                            <svg width="18" height="18"><use xlink:href="#cart"></use></svg>Agregar a carrito
+                            <svg width="18" height="18"><use xlink:href="#cart"></use></svg> Agregar a carrito
                           </a>
                         </div>
                         <div class="col-2">
@@ -745,5 +772,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="static/js/plugins.js"></script>
     <script src="static/js/script.js"></script>
+    <script src="{% static 'js/carrito.js' %}"></script>
   </body>
 </html>
