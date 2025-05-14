@@ -371,6 +371,9 @@ def recuperar_contrasena(request):
 def reportes(request):
     return render(request, 'reportes.html')
 
+def Spedido_contador(request):
+    return render(request, 'Spedido_contador.html')
+
 def perfil(request):
     nombre_usuario = ""
     apellido_usuario = ""
