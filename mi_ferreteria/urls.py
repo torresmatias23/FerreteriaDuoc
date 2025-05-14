@@ -52,6 +52,7 @@ urlpatterns = [
     path('usuarios/', views.usuarios, name='usuarios'),
     path("usuarios/editar/", views.editar_usuario, name="editar_usuario"),
     path("usuarios/eliminar/", views.eliminar_usuario, name="eliminar_usuario"),
+    path("Spedido_contador/",views.Spedido_contador, name= "Spedido_contador"),
  
     path('perfil/', views.perfil, name='perfil'),
     path('admin_productos/', views.admin_productos, name='admin_productos'),

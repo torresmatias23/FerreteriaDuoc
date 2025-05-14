@@ -1,0 +1,134 @@
+/* Navbar */
+.navbar {
+  background-color: #de8b3d;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  color: white;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #ffe9cc;
+}
+
+.navbar-links i {
+  color: white;
+  font-size: 1.4rem;
+}
+
+/* Body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f5fb;
+  padding: 30px 20px;
+}
+
+/* Card */
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 1000px;
+  margin: 40px auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  color: #0d6efd;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.subtitle {
+  color: gray;
+  font-weight: normal;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f4fa;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f9fbfd;
+}
+
+/* Estado */
+.status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  color: white;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.status.approved {
+  background-color: #28a745;
+}
+
+.status.pending {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.status.rejected {
+  background-color: #dc3545;
+}
+
+/* Links de producto */
+.product a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+/* Footer */
+.site-footer {
+  background-color: #de8b3d;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 60px;
+  font-weight: 500;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
