@@ -241,7 +241,7 @@ def login_usuario(request):
                 if tipo_usuario == "admin":
                     return redirect("dashboard_admin")
                 elif tipo_usuario == "bodeguero":
-                    return redirect("ordenes_bodega")
+                    return redirect("Spedido_contador")
                 else:
                     return redirect("home")
             else:
@@ -372,7 +372,21 @@ def reportes(request):
     return render(request, 'reportes.html')
 
 def Spedido_contador(request):
-    return render(request, 'Spedido_contador.html')
+    nombre_usuario = obtener_nombre_usuario(request)
+    return render(request, 'Spedido_contador.html', {'nombre_usuario': nombre_usuario})
+
+
+def obtener_nombre_usuario(request):
+    try:
+        uid = request.session.get("firebase_uid")
+        if uid:
+            user_doc = db.collection("usuarios").document(uid).get()
+            if user_doc.exists:
+                user_data = user_doc.to_dict()
+                return user_data.get("primer_nombre", "")
+    except Exception as e:
+        print("Error al obtener datos del usuario:", e)
+    return ""
 
 def perfil(request):
     nombre_usuario = ""

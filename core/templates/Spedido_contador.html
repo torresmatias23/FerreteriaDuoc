@@ -13,16 +13,19 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar">
-    <div class="navbar-container">
-      <span class="navbar-brand">Contador Ferremax</span>
-      <ul class="navbar-links">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Iniciar sesión</a></li>
-        <li><i class="fas fa-user-circle"></i></li>
-      </ul>
-    </div>
-  </nav>
+<nav class="navbar">
+  <div class="navbar-container">
+    <span class="navbar-brand">Contador Ferremax</span>
+    <ul class="navbar-links">
+      <li><a href="{% url 'home' %}">Inicio</a></li>
+      {% if nombre_usuario %}
+        <li class="me-3 text-dark">
+          <span class="fw-bold">Hola, {{ nombre_usuario }}</span>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
 
   <div class="card">
     <h2>Estado de pedido<small class="subtitle">| Hoy</small></h2>
