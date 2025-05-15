@@ -249,102 +249,102 @@
 
 
 <!-- TEXTO INICIAL -->
-<section style="background-image: url('static/images/banner2.png'); background-repeat: no-repeat; background-size: cover;">
-  <div class="container-lg">
+<section style="position: relative; padding-bottom: 5rem; background-image: url('static/images/banner2.png'); background-repeat: no-repeat; background-size: cover; background-position: center;">
+  <!-- Overlay oscuro para mejor contraste -->
+  <div style="position: absolute; inset: 0; background: rgba(91, 59, 14, 0.4); z-index: 0;"></div>
+
+  <div class="container-lg" style="position: relative; z-index: 1;">
     <div class="row">
-      <div class="col-lg-6 pt-5 mt-5">
-        <h2 class="display-1 ls-1">
-          <span class="fw-bold text-warning">Ferremax</span> Más a tu alcance <span class="fw-bold">Compra online</span>
+      <div class="col-lg-6 pt-5 mt-5 text-white">
+        <h2 class="display-1 fw-bold" style="line-height: 1.1;">
+          <span class="text-warning">Ferremax</span> Más a tu alcance <span class="text-white">Compra online</span>
         </h2>
-        <p class="fs-4 text-dark">Y recibe tu pedido en la puerta de tu hogar.</p>
+        <p class="fs-4 text-light">Y recibe tu pedido en la puerta de tu hogar.</p>
         <div class="d-flex gap-3">
-          <a href="#destacados" class="btn btn-warning text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Ir a comprar</a>
+          <a href="#destacados" class="btn btn-warning text-uppercase fs-6 rounded-pill px-4 py-3 mt-3 shadow" style="box-shadow: 0 6px 12px rgba(255, 193, 7, 0.6); transition: background-color 0.3s ease;">
+            Ir a comprar
+          </a>
           {% if not nombre_usuario %}
-          <a href="login" class="btn btn-dark text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Iniciar sesión</a>
-        {% endif %}
-        
+          <a href="login" class="btn btn-outline-light text-uppercase fs-6 rounded-pill px-4 py-3 mt-3" style="transition: background-color 0.3s ease;">
+            Iniciar sesión
+          </a>
+          {% endif %}
         </div>
-        <div class="row my-5">
+
+        <!-- MÉTRICAS -->
+        <div class="row mt-5 text-light">
           <div class="col">
-            <div class="row text-dark">
-              <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">+1k</p></div>
-              <div class="col"><p class="text-uppercase lh-sm mb-0">Productos</p></div>
+            <div class="text-center">
+              <p class="fs-1 fw-bold mb-0">+1k</p>
+              <p class="text-uppercase text-muted small">Productos</p>
             </div>
           </div>
           <div class="col">
-            <div class="row text-dark">
-              <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">20k+</p></div>
-              <div class="col"><p class="text-uppercase lh-sm mb-0">Ventas</p></div>
+            <div class="text-center">
+              <p class="fs-1 fw-bold mb-0">20k+</p>
+              <p class="text-uppercase text-muted small">Ventas</p>
             </div>
           </div>
           <div class="col">
-            <div class="row text-dark">
-              <div class="col-auto"><p class="fs-1 fw-bold lh-sm mb-0">2+</p></div>
-              <div class="col"><p class="text-uppercase lh-sm mb-0">Tiendas</p></div>
+            <div class="text-center">
+              <p class="fs-1 fw-bold mb-0">2+</p>
+              <p class="text-uppercase text-muted small">Tiendas</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- TARJETAS NEGRAS AJUSTADAS -->
-    <div id="card-info-banner" class="row row-cols-1 row-cols-sm-3 row-cols-lg-3 g-3 justify-content-center mt-4">
+    <!-- TARJETAS GLASSMORPHISM -->
+    <div id="card-info-banner" class="row row-cols-1 row-cols-sm-3 g-4 justify-content-center mt-5">
       <div class="col d-flex">
-        <div class="card border-0 bg-black rounded-0 p-4 text-white w-100">
+        <div class="card text-white p-4 w-100 border-0 shadow" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); border-radius: 1rem;">
           <div class="row">
-            <div class="col-md-3 text-center d-flex align-items-center justify-content-center">
-              <svg width="60" height="60"><use xlink:href="#fresh"></use></svg>
+            <div class="col-3 d-flex align-items-center justify-content-center">
+              <svg width="50" height="50" fill="#ffc107"><use xlink:href="#fresh"></use></svg>
             </div>
-            <div class="col-md-9 d-flex align-items-center">
-              <div class="card-body p-0">
-                <h5 class="text-white">+20 años</h5>
-                <p class="card-text">Profesionalismo y seriedad con el cliente.</p>
-              </div>
+            <div class="col-9">
+              <h5 class="mb-1 text-warning">+20 años</h5>
+              <p class="small mb-0">Profesionalismo y seriedad con el cliente.</p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="col d-flex">
-        <div class="card border-0 bg-black rounded-0 p-4 text-white w-100">
+        <div class="card text-white p-4 w-100 border-0 shadow" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); border-radius: 1rem;">
           <div class="row">
-            <div class="col-md-3 text-center d-flex align-items-center justify-content-center">
-              <svg width="60" height="60"><use xlink:href="#martillo"></use></svg>
+            <div class="col-3 d-flex align-items-center justify-content-center">
+              <svg width="50" height="50" fill="#ffc107"><use xlink:href="#martillo"></use></svg>
             </div>
-            <div class="col-md-9 d-flex align-items-center">
-              <div class="card-body p-0">
-                <h5 class="text-white">100% calidad</h5>
-                <p class="card-text">Entregando productos de calidad para la buena experiencia del cliente.</p>
-              </div>
+            <div class="col-9">
+              <h5 class="mb-1 text-warning">100% calidad</h5>
+              <p class="small mb-0">Entregando productos de calidad para la buena experiencia del cliente.</p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="col d-flex">
-        <div class="card border-0 bg-black rounded-0 p-4 text-white w-100">
+        <div class="card text-white p-4 w-100 border-0 shadow" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); border-radius: 1rem;">
           <div class="row">
-            <div class="col-md-3 text-center d-flex align-items-center justify-content-center">
-              <svg width="60" height="60"><use xlink:href="#delivery"></use></svg>
+            <div class="col-3 d-flex align-items-center justify-content-center">
+              <svg width="50" height="50" fill="#ffc107"><use xlink:href="#delivery"></use></svg>
             </div>
-            <div class="col-md-9 d-flex align-items-center">
-              <div class="card-body p-0">
-                <h5 class="text-white">Delivery gratis</h5>
-                <p class="card-text">Envíos dentro de la región, fuera tendrá una comisión dependiendo la compra.</p>
-              </div>
+            <div class="col-9">
+              <h5 class="mb-1 text-warning">Delivery gratis</h5>
+              <p class="small mb-0">Envíos dentro de la región. Fuera tendrá una comisión dependiendo la compra.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- FIN TARJETAS -->
-    
+
   </div>
 </section>
-
-
-    <!-- CATEGORIAS -->
-    <section class="py-5 overflow-hidden">
+ <!-- CATEGORIAS -->
+    <section id="categorias" class="py-5 overflow-hidden">
       <div class="container-lg">
         <div class="row">
           <div class="col-md-12">
@@ -649,77 +649,82 @@
 </section>
 
 
-<section class="py-5">
-      <div class="container-lg">
-        <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-5">
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#package"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Delivery gratis</h5>
-                <p class="card-text">Recibe tu pedido en la puerta de tu hogar sin costo adicional.</p>
-              </div>
-            </div>
+<section class="py-5 bg-light">
+  <div class="container-lg">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+      
+      <div class="col">
+        <div class="card shadow-sm rounded p-4 h-100" id="card-glow">
+          <div class="bg-warning d-flex align-items-center justify-content-center mb-3 rounded-circle" style="width: 56px; height: 56px;">
+            <svg width="32" height="32" fill="white"><use xlink:href="#package"></use></svg>
           </div>
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#secure"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Pago 100% seguro</h5>
-                <p class="card-text">Trabajamos con socios de pago conocidos a nivel nacional.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#quality"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Garantía de calidad</h5>
-                <p class="card-text">¿Tuviste un problema con tu compra? No te preocupes, te podemos ayudar.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#savings"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Productos originales</h5>
-                <p class="card-text">Encuentra las mejores marcas del mercado durante tu compra.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card mb-3 border border-dark-subtle p-3">
-              <div class="text-dark mb-3">
-                <svg width="32" height="32"><use xlink:href="#offers"></use></svg>
-              </div>
-              <div class="card-body p-0">
-                <h5>Ofertas diarias</h5>
-                <p class="card-text">Todos los dias una nueva oferta, ¡Aprovéchalas todas!.</p>
-              </div>
-            </div>
-          </div>
+          <h5 class="fw-bold mb-2">Delivery gratis</h5>
+          <p class="text-muted mb-0">Recibe tu pedido en la puerta de tu hogar sin costo adicional.</p>
         </div>
       </div>
-    </section>
-
-
-
-<section>
-  <h5>Nos encontramos aqui.📍</h5>
-  <div id="map">
+      
+      <div class="col">
+        <div class="card shadow-sm rounded p-4 h-100" id="card-glow">
+          <div class="bg-warning d-flex align-items-center justify-content-center mb-3 rounded-circle" style="width: 56px; height: 56px;">
+            <svg width="32" height="32" fill="white"><use xlink:href="#secure"></use></svg>
+          </div>
+          <h5 class="fw-bold mb-2">Pago 100% seguro</h5>
+          <p class="text-muted mb-0">Trabajamos con socios de pago conocidos a nivel nacional.</p>
+        </div>
+      </div>
+      
+      <div class="col">
+        <div class="card shadow-sm rounded p-4 h-100" id="card-glow">
+          <div class="bg-warning d-flex align-items-center justify-content-center mb-3 rounded-circle" style="width: 56px; height: 56px;">
+            <svg width="32" height="32" fill="white"><use xlink:href="#quality"></use></svg>
+          </div>
+          <h5 class="fw-bold mb-2">Garantía de calidad</h5>
+          <p class="text-muted mb-0">¿Tuviste un problema con tu compra? No te preocupes, te podemos ayudar.</p>
+        </div>
+      </div>
+      
+      <div class="col">
+        <div class="card shadow-sm rounded p-4 h-100" id="card-glow">
+          <div class="bg-warning d-flex align-items-center justify-content-center mb-3 rounded-circle" style="width: 56px; height: 56px;">
+            <svg width="32" height="32" fill="white"><use xlink:href="#savings"></use></svg>
+          </div>
+          <h5 class="fw-bold mb-2">Productos originales</h5>
+          <p class="text-muted mb-0">Encuentra las mejores marcas del mercado durante tu compra.</p>
+        </div>
+      </div>
+      
+      <div class="col">
+        <div class="card shadow-sm rounded p-4 h-100" id="card-glow">
+          <div class="bg-warning d-flex align-items-center justify-content-center mb-3 rounded-circle" style="width: 56px; height: 56px;">
+            <svg width="32" height="32" fill="white"><use xlink:href="#offers"></use></svg>
+          </div>
+          <h5 class="fw-bold mb-2">Ofertas diarias</h5>
+          <p class="text-muted mb-0">Todos los días una nueva oferta, ¡Aprovéchalas todas!</p>
+        </div>
+      </div>
+      
+    </div>
   </div>
 </section>
+
+
+<section class="container my-5">
+  <div class="row align-items-center">
     
-    
+    <!-- Columna izquierda: texto o contenido -->
+    <div class="col-md-6 mb-4 mb-md-0">
+      <h5 class="fw-bold">Nos encontramos aquí 📍</h5>
+      <p class="text-muted">Visítanos en nuestra ubicación física para atención personalizada. Estamos ubicados en un punto estratégico de fácil acceso.</p>
+    </div>
+
+    <!-- Columna derecha: mapa -->
+    <div class="col-md-6">
+      <div id="map"></div>
+    </div>
+  </div>
+</section>
+
+
 <footer class="py-5">
   <div class="container-lg">
     <div class="row">

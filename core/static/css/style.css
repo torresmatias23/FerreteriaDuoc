@@ -77,7 +77,22 @@ body {
   font-size: 1.25rem;
   color: #007bff;
 }
+#card-glow {
+  border: 2px solid #b37f00; /* amarillo oscuro */
+  box-shadow: 0 0 8px 2px rgba(179, 127, 0, 0.7);
+  transition: box-shadow 0.3s ease;
+}
 
+#card-glow:hover {
+  box-shadow: 0 0 15px 5px rgba(255, 193, 7, 0.9);
+}
+#map {
+  width: 100%;
+  height: 350px;
+  border: 2px solid #b37f00;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(255, 193, 7, 0.5);
+}
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: var(--bs-primary);
@@ -301,33 +316,235 @@ h1,h2,h3,h4,h5,h6 {
   overflow: hidden;
 }
 
-/*CSS CATALOGOS*/
+/* CSS CATALOGOS */
 #catalogos .catalogo-img-container {
   height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid #b37f00;
   padding: 1rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 #catalogos .catalogo-img {
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
 #catalogos .card {
-  transition: transform 0.2s ease;
+  border: 2px solid #b37f00;
+  border-radius: 15px;
+  box-shadow: 0 0 8px rgba(179, 127, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
 }
 
 #catalogos .card:hover {
-  transform: scale(1.02);
+  transform: translateY(-5px);
+  box-shadow: 0 0 18px rgba(255, 193, 7, 0.6);
 }
 
+#catalogos .card:hover .catalogo-img {
+  transform: scale(1.1);
+}
 
+#catalogos .card-title {
+  font-weight: 700;
+  color: #333;
+}
+/* PRODUCTOS GENERALES */
+#generales .product-item {
+  border: 2px solid #b37f00; /* borde dorado oscuro */
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(179, 127, 0, 0.2);
+  padding: 1rem;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
+#generales .product-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 16px rgba(255, 193, 7, 0.5);
+}
+
+#generales .product-item figure {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+#generales .product-item img {
+  max-height: 180px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+#generales .product-item:hover img {
+  transform: scale(1.05);
+}
+
+#generales .fs-6 {
+  font-weight: 600;
+  color: #333;
+}
+
+#generales .rating svg {
+  fill: #ffc107;
+}
+
+#generales .button-area .btn-cart {
+  background-color: #b37f00;
+  border: none;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#generales .button-area .btn-cart:hover {
+  background-color: #ffca2c;
+  color: #000;
+}
+
+#generales .btn-outline-dark:hover {
+  background-color: #b37f00;
+  color: white;
+  border-color: #b37f00;
+}
+
+/* PRODUCTOS DESTACADOS */
+#destacados .product-item {
+  border: 2px solid #ff6f00; /* naranja oscuro */
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(255, 111, 0, 0.3);
+  padding: 1rem;
+  background-color: #fff;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#destacados .product-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 16px rgba(255, 111, 0, 0.5);
+}
+
+#destacados .product-item figure {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+#destacados .product-item img {
+  max-height: 180px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+#destacados .product-item:hover img {
+  transform: scale(1.05);
+}
+
+#destacados .fs-6 {
+  font-weight: 600;
+  color: #333;
+}
+
+#destacados .rating svg {
+  fill: #ff6f00; /* naranja */
+}
+
+/* Botón carrito con degradado naranja */
+#destacados .button-area .btn-cart {
+  background: linear-gradient(135deg, #ff6f00, #ff8f00);
+  border: none;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+#destacados .button-area .btn-cart:hover {
+  background: linear-gradient(135deg, #ff8f00, #ff6f00);
+  color: #fff;
+}
+
+#destacados .btn-outline-dark:hover {
+  background-color: #ff6f00;
+  color: white;
+  border-color: #ff6f00;
+}
+
+/* Sello de "Destacado" en naranja */
+#destacados .product-item::before {
+  content: "⭐ DESTACADO";
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  background: #ff6f00;
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 0 6px 6px 0;
+  transform: rotate(-5deg);
+  box-shadow: 0 2px 6px rgba(255, 111, 0, 0.4);
+}
+
+/* CATEGORIAS - estilo negro */
+#categorias .section-title {
+  color: #000; /* título en negro */
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.category-carousel .swiper-slide {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px 5px;
+}
+
+.category-carousel .swiper-slide:hover,
+.category-carousel .swiper-slide:focus {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+.category-carousel img {
+  border: 4px solid #000; /* borde negro */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-carousel .category-title {
+  color: #000;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.category-carousel .swiper-slide:hover .category-title,
+.category-carousel .swiper-slide:focus .category-title {
+  color: #333; /* un negro más suave para hover */
+}
+
+/* Ajustes responsive */
+@media (max-width: 576px) {
+  .category-carousel img {
+    width: 90px !important;
+    height: 90px !important;
+  }
+  .category-carousel .category-title {
+    font-size: 0.85rem;
+  }
+}
 /* Contenedor de imagen con tamaño fijo */
 .producto-img-container {
   width: 100%;
